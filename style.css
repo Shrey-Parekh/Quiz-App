@@ -316,6 +316,7 @@ body {
     margin-bottom: 20px;
     font-family: Font4;
     text-decoration: none;
+    color: #252020;
 }
 
 /* Marquee Effect */
@@ -362,6 +363,8 @@ body {
     cursor: pointer;
     text-align: left;
     text-decoration: none;
+    font-family: Font4;
+    color: #252020;
 }
 
 .quiz-card:hover {
@@ -383,8 +386,7 @@ body {
 }
 
 .quiz-content h3 {
-    font-size: 18px;
-    color: #333;
+    font-size: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
