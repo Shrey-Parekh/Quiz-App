@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">TRIVIO</div>
+        <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#about-us">About</a></li>
+            <li><a href="#">High Score</a></li>
+            <li><a href="#">Login</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="main-container">
+        <div class="main-container-text">
+            <p>Challenge Your Mind!</p><br>
+            <center><div class="main-container-button">
+                <a href="">PLAY</a>
+            </div></center>
+        </div>
+    </div>
+    <div class="body-section2">
+        <div class="body-section2-image">
+            <img src="image2.jpg" alt="Image Here" height="600px" width="auto">
+        </div>
+        <div class="body-section2-text" id="about-us">
+            <h1>Discover Trivio</h1>
+            <h2>Engaging quizzes for everyone</h2><br><br>
+            <p>Trivio brings the thrill of quizzes to your fingertips! Tailored for the vibrant youth of today, our app offers a diverse range of quiz themes from general knowledge and history to gaming, animals, technology, and sports. With stunning animations and a sleek design, Trivio enhances your quiz experience like never before.</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector(".navbar ul").classList.toggle("active");
+        }
+    </script>
+</body>
+</html>
