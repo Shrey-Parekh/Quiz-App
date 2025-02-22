@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Navbar</title>
+    <title>Home</title>
     <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
+    <script src="script.js"></script>
     <nav class="navbar">
         <div class="logo">TRIVIO</div>
         <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
@@ -14,6 +16,7 @@
             <li><a href="#">Home</a></li>
             <li><a href="#about-us">About</a></li>
             <li><a href="#">High Score</a></li>
+            <li><a href="#">Themes</a></li>
             <li><a href="#">Login</a></li>
             <li><a href="#">Contact</a></li>
         </ul>
@@ -36,11 +39,85 @@
             <p>Trivio brings the thrill of quizzes to your fingertips! Tailored for the vibrant youth of today, our app offers a diverse range of quiz themes from general knowledge and history to gaming, animals, technology, and sports. With stunning animations and a sleek design, Trivio enhances your quiz experience like never before.</p>
         </div>
     </div>
+    <section class="quiz-section hidden">
+        <p class="section-tag">ENGAGING QUIZ EXPERIENCE</p>
+        <h1>Explore a world of fun and knowledge!</h1>
+        <br><br>
+        <center>
+            <div class="marquee-container">
+                <div class="quiz-wrapper">
+                    <div class="quiz-container">
+                        
+                        <a href="themes.html" class="quiz-card">
+                            <img src="image3.jpg" alt="General Knowledge">
+                            <div class="quiz-content">
+                                <h3>General Knowledge <span>›</span></h3>
+                                <p>Test your brainpower with exciting quizzes.</p>
+                            </div>
+                        </a>
 
-    <script>
-        function toggleMenu() {
-            document.querySelector(".navbar ul").classList.toggle("active");
-        }
-    </script>
+                        <a href="themes.html" class="quiz-card">
+                            <img src="image4.jpg" alt="Technology">
+                            <div class="quiz-content">
+                                <h3>Technology <span>›</span></h3>
+                                <p>Explore the latest tech trends.</p>
+                            </div>
+                        </a>
+
+                        <a href="themes.html" class="quiz-card">
+                            <img src="image5.jpg" alt="Sports">
+                            <div class="quiz-content">
+                                <h3>Sports <span>›</span></h3>
+                                <p>Challenge your sports knowledge.</p>
+                            </div>
+                        </a>
+
+                        <a href="themes.html" class="quiz-card">
+                            <img src="image6.jpg" alt="Animals">
+                            <div class="quiz-content">
+                                <h3>Animals <span>›</span></h3>
+                                <p>Discover amazing facts about wildlife.</p>
+                            </div>
+                        </a>
+
+                        <a href="themes.html" class="quiz-card">
+                            <img src="image7.jpg" alt="History">
+                            <div class="quiz-content">
+                                <h3>History <span>›</span></h3>
+                                <p>Learn about the past and its impact.</p>
+                            </div>
+                        </a>
+
+                        <a href="themes.html" class="quiz-card">
+                            <img src="image8.jpg" alt="Geography">
+                            <div class="quiz-content">
+                                <h3>Geography <span>›</span></h3>
+                                <p>Test your knowledge about the world.</p>
+                            </div>
+                        </a>
+
+                        <a href="themes.html" class="quiz-card">
+                            <img src="image9.jpg" alt="Science">
+                            <div class="quiz-content">
+                                <h3>Science <span>›</span></h3>
+                                <p>Explore the wonders of science.</p>
+                            </div>
+                        </a>
+
+                        <a href="themes.html" class="quiz-card">
+                            <img src="image10.jpg" alt="Maths">
+                            <div class="quiz-content">
+                                <h3>Maths <span>›</span></h3>
+                                <p>Challenge yourself with math puzzles.</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </center>
+    </section>
+
+</body>
+</html>
 </body>
 </html>
