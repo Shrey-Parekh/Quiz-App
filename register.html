@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Trivio</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">TRIVIO</div>
+        <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="home.html#about-us">About</a></li>
+            <li><a href="#">High Score</a></li>
+            <li><a href="themes.html">Themes</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="home.html#contact-section">Contact</a></li>
+        </ul>
+    </nav>
+<br><br><br><br>
+    <div class="register-container">
+        <h2>Create an Account</h2>
+        <div class="card">
+            <form action="register_process.php" method="POST">
+                <div class="form-group">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="dob" class="form-label">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="gender" class="form-label">Gender</label>
+                    <select id="gender" name="gender" required>
+                        <option value="">Select</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm-password" class="form-label">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required>
+                </div>
+
+                <button type="submit" class="btn-primary">Register</button>
+            </form>
+        </div>
+        <p>Already have an account? <a href="login.html">Login here</a></p>
+    </div>
+</body>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      const form = document.querySelector("form");
+      const passwordInput = document.getElementById("password");
+      const confirmPasswordInput = document.getElementById("confirm-password");
+
+      function showError(input, message) {
+          let parent = input.parentElement;
+          let error = parent.querySelector(".error-message");
+          
+          if (!error) {
+              error = document.createElement("div");
+              error.className = "error-message";
+              parent.appendChild(error);
+          }
+
+          error.textContent = message;
+          error.style.color = "#8B0000";
+          error.style.fontSize = "14px";
+          error.style.marginTop = "5px";
+          error.style.opacity = "1";
+
+          input.style.border = "2px solid #8B0000";
+          input.style.boxShadow = "0 0 8px rgba(139, 0, 0, 0.5)";
+      }
+
+      function clearError(input) {
+          let parent = input.parentElement;
+          let error = parent.querySelector(".error-message");
+          
+          if (error) {
+              error.style.opacity = "0";
+              setTimeout(() => error.remove(), 300);
+          }
+
+          input.style.border = "2px solid #8B5A2B";
+          input.style.boxShadow = "none";
+      }
+
+      confirmPasswordInput.addEventListener("input", function () {
+          if (confirmPasswordInput.value === passwordInput.value) {
+              clearError(confirmPasswordInput);
+          } else {
+              showError(confirmPasswordInput, "Passwords do not match!");
+          }
+      });
+
+      form.addEventListener("submit", function (event) {
+          if (confirmPasswordInput.value !== passwordInput.value) {
+              showError(confirmPasswordInput, "Passwords do not match!");
+              event.preventDefault();
+          }
+      });
+  });
+</script>
+</html>

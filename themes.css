@@ -26,7 +26,10 @@ html {
 }
 
 body {
-    background-color: antiquewhite;
+    background-image: url("bgimage.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* Navbar */

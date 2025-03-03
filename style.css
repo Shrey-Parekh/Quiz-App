@@ -600,7 +600,7 @@ input:focus::placeholder, textarea:focus::placeholder {
 
 /* Button Styling */
 button {
-    font-family: monospace;
+    font-family: font4;
     background: linear-gradient(135deg, #8B7355, #A67B5B);
     padding: 16px;
     border: none;
