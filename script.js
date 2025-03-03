@@ -16,10 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-function toggleMenu() {
-    document.querySelector(".navbar ul").classList.toggle("active");
-}
-
 
 document.addEventListener("DOMContentLoaded", function () {
     const section = document.querySelector(".body-section2");
@@ -29,7 +25,42 @@ document.addEventListener("DOMContentLoaded", function () {
                 section.classList.add("visible");
             }
         });
-    }, { threshold: 0.25 });
+    }, { threshold: 0.15 });
 
     observer.observe(section);
+});
+
+function toggleMenu() {
+    document.querySelector(".navbar ul").classList.toggle("active");
+}
+
+// Add scroll effect
+window.addEventListener("scroll", function () {
+    const navbar = document.querySelector(".navbar");
+    if (window.scrollY > 50) {
+        navbar.classList.add("scrolled");
+    } else {
+        navbar.classList.remove("scrolled");
+    }
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const contactSection = document.querySelector(".contact-section");
+    setTimeout(() => {
+        contactSection.style.opacity = "1";
+        contactSection.style.transform = "translateY(0) scale(1)";
+    }, 300);
+});
+
+document.querySelectorAll("input, textarea").forEach((field) => {
+    field.dataset.placeholder = field.placeholder;
+    
+    field.addEventListener("focus", () => {
+        field.setAttribute("placeholder", "Typing...");
+    });
+
+    field.addEventListener("blur", () => {
+        field.setAttribute("placeholder", field.dataset.placeholder);
+    });
 });

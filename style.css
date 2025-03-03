@@ -24,7 +24,7 @@ html {
 }
 
 body {
-    font-family: Arial, sans-serif;
+
     background-image: url('image1.jpg'); 
     background-size: cover;
     background-position: center;
@@ -44,21 +44,24 @@ body {
     left: 0;
     z-index: 1000;
     transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    font-family: Font3;
 }
 
-/* Shadow effect when scrolling */
+
 .navbar.scrolled {
     background-color: rgba(37, 32, 32, 0.9);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 10rem;
 }
 
 .navbar .logo {
     color: white;
-    font-size: 28px;
+    font-size: 34px;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 2px;
     transition: transform 0.3s ease-in-out;
+    cursor: pointer;
 }
 
 .navbar .logo:hover {
@@ -75,36 +78,67 @@ body {
     position: relative;
 }
 
+/* Smooth scale effect on hover */
 .navbar ul li a {
-    color: white;
+    color: antiquewhite;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 20px;
     padding: 10px 15px;
     position: relative;
-    transition: color 0.3s ease-in-out;
-}
-
-/* Underline animation */
-.navbar ul li a::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: -5px;
-    width: 0%;
-    height: 3px;
-    background: #f4a261;
-    transition: all 0.3s ease-in-out;
-    transform: translateX(-50%);
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    display: inline-block;
 }
 
 .navbar ul li a:hover {
-    color: #f4a261;
+    transform: scale(1.1);
+    color: white;
+    opacity: 1;
+    font-weight: bold;
 }
 
-.navbar ul li a:hover::after {
-    width: 100%;
+/* Mobile menu toggle */
+.menu-toggle {
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+    display: none;
 }
 
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar ul {
+        display: none;
+        flex-direction: column;
+        background: rgb(255, 255, 255);
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        padding: 20px 0;
+        text-align: center;
+    }
+
+    .navbar ul.active {
+        display: flex;
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}
+
+/* Mobile Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 /* Mobile Menu */
 .menu-toggle {
     display: none;
@@ -143,7 +177,7 @@ body {
 .main-container
 {
     background-color: rgba(0, 0, 0, 0.623);
-    height: 750px;
+    height: 100vh;
     width: 100%;
     z-index: 1;
 }
@@ -226,7 +260,7 @@ body {
 }
 
 .body-section2 {
-    height: 800px;
+    height: 100vh;
     width: 100%;
     background-color: antiquewhite;
     display: grid;
@@ -234,7 +268,7 @@ body {
     gap: 10px;
     padding: 150px 200px;
     opacity: 0;
-    transform: translateY(50px) scale(0.95);
+    transform: translateY(500px) scale(0.95);
     transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
@@ -246,7 +280,7 @@ body {
 .body-section2-text {
     font-family: Font4;
     opacity: 0;
-    transform: translateX(-50px);
+    transform: translateX(-300px);
     transition: opacity 1s ease-out 0.4s, transform 1s ease-out 0.4s;
 }
 
@@ -274,20 +308,20 @@ body {
 .body-section2-image img {
     border-radius: 10%;
     opacity: 0;
-    transform: scale(0.8) rotate(-5deg);
+    transform: scale(0.8) rotate(-15deg);
     transition: opacity 1s ease-out 0.6s, transform 1s ease-out 0.6s;
 }
 
 .body-section2.visible .body-section2-image img {
     opacity: 1;
-    transform: scale(1) rotate(0deg);
+    transform: scale(1.05) rotate(0deg);
 }
 
 
 .quiz-section {
     text-align: center;
     padding: 155px 50px;
-    height: 750px;
+    height: 100vh;
     background-color: #eef1ef;
     opacity: 0; /* Initially hidden */
     transform: translateY(50px);
@@ -309,7 +343,20 @@ body {
     font-family: monospace;
     text-decoration: none;
 }
-
+.section-tag a 
+{
+    color: #4CAF50;
+    text-decoration: none;
+    font-size: 26px;
+    transition: 0.3s ease;
+}
+.section-tag a:hover
+{
+    font-size: 30px;
+    text-decoration: underline;
+    color: #40b144;
+    font-weight: bold;
+}
 .quiz-section h1 {
     font-size: 65px;
     font-weight: bold;
@@ -355,7 +402,7 @@ body {
 /* Individual Quiz Card */
 .quiz-card {
     width: 300px;
-    background: white;
+    background: rgb(218, 218, 218);
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -419,5 +466,180 @@ body {
         flex: 0 0 auto;
         scroll-snap-align: center;
         text-decoration: none;
+    }
+}
+
+/* Contact Section - Enhanced Entry Animation */
+.contact-section {
+    display: flex;
+    flex-direction: column;
+    background: rgba(250, 235, 215, 0.9);
+    backdrop-filter: blur(15px);
+    width: 90%;
+    max-width: 600px;
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+    animation: fadeInBounce 1.2s ease-out forwards;
+}
+
+/* Entrance Animation */
+@keyframes fadeInBounce {
+    0% { opacity: 0; transform: translateY(50px) scale(0.9); }
+    60% { opacity: 0.7; transform: translateY(-10px) scale(1); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Title and Info Styling */
+.contact-info h2 {
+    font-family: Font4;
+    font-size: 38px;
+    color: #252020;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+    animation: glowText 1.5s infinite alternate ease-in-out;
+}
+
+/* Glowing Title Animation */
+@keyframes glowText {
+    from { text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+    to { text-shadow: 0 0 18px rgba(255, 255, 255, 0.8); }
+}
+
+.contact-info p {
+    font-size: 18px;
+    color: #252020;
+}
+
+.contact-info a {
+    color: #8B7355;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+.contact-info a:hover {
+    color: #A67B5B;
+}
+
+/* Social Icons */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.social-icons i {
+    margin: 0 12px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #252020;
+    transition: transform 0.4s ease, color 0.3s;
+}
+
+.social-icons i:hover {
+    color: #8B7355;
+    transform: scale(1.4) rotate(15deg);
+}
+
+/* Contact Form */
+.contact-form {
+    width: 100%;
+    margin-top: 25px;
+}
+
+/* Input, Select, and Textarea Fields */
+input, select, textarea {
+    width: 100%;
+    padding: 14px;
+    margin: 12px 0;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.7);
+    color: #252020;
+    font-size: 18px;
+    outline: none;
+    position: relative;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease-in-out;
+    font-family: font3;
+}
+
+/* Hover Effect - Lift Effect */
+input:hover, select:hover, textarea:hover {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
+}
+
+/* Focus Effect - Soft Pulse Glow */
+input:focus, select:focus, textarea:focus {
+    border: 2px solid #8B7355;
+    box-shadow: 0 0 20px rgba(139, 115, 85, 0.8);
+    transform: scale(1.05);
+    animation: pulseGlow 1s infinite ease-in-out;
+}
+
+/* Glowing Effect on Focus */
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 15px rgba(139, 115, 85, 0.7); }
+    50% { box-shadow: 0 0 30px rgba(139, 115, 85, 0.5); }
+    100% { box-shadow: 0 0 15px rgba(139, 115, 85, 0.7); }
+}
+
+/* Floating Placeholder Effect */
+input::placeholder, textarea::placeholder {
+    transition: transform 0.4s ease-in-out, opacity 0.4s;
+}
+
+input:focus::placeholder, textarea:focus::placeholder {
+    transform: translateY(-18px);
+    opacity: 0.5;
+}
+
+/* Button Styling */
+button {
+    font-family: monospace;
+    background: linear-gradient(135deg, #8B7355, #A67B5B);
+    padding: 16px;
+    border: none;
+    width: 100%;
+    color: white;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Button Hover - Depth and Glow */
+button:hover {
+    background: linear-gradient(135deg, #A67B5B, #8B7355);
+    transform: scale(1.08);
+    box-shadow: 0 10px 20px rgba(44, 44, 44, 0.4);
+    font-weight: bolder;
+    font-size: 22px;
+}
+
+
+/* Button Click - Ripple Effect */
+button:active {
+    animation: rippleEffect 0.4s ease-out;
+}
+
+@keyframes rippleEffect {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .contact-section {
+        width: 95%;
+        padding: 35px;
     }
 }

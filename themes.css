@@ -1,0 +1,176 @@
+@font-face {
+    font-family: 'Font1';
+    src: url('ImperialScript-Regular.ttf');
+}
+@font-face {
+    font-family: 'Font2';
+    src: url('ImperialScript-Regular.ttf');
+}
+@font-face {
+    font-family: 'Font3';
+    src: url('DeliusSwashCaps-Regular.ttf');
+}
+@font-face {
+    font-family: 'Font4';
+    src: url('SourGummy-VariableFont_wdth,wght.ttf');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: antiquewhite;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #252020;
+    padding: 15px 30px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    font-family: Font3;
+}
+
+.navbar.scrolled {
+    background-color: rgba(37, 32, 32, 0.9);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 10rem;
+}
+
+.navbar .logo {
+    color: white;
+    font-size: 34px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.navbar .logo:hover {
+    transform: scale(1.1);
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar ul li a {
+    color: antiquewhite;
+    text-decoration: none;
+    font-size: 20px;
+    padding: 10px 15px;
+    position: relative;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    display: inline-block;
+}
+
+.navbar ul li a:hover {
+    transform: scale(1.1);
+    color: white;
+    opacity: 1;
+    font-weight: bold;
+}
+
+/* Quiz Container */
+.quiz-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 35px;
+    padding: 20px;
+    justify-content: center;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Quiz Cards */
+.quiz-card {
+    background: rgb(255, 255, 255);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    text-align: left;
+    text-decoration: none;
+    font-family: Font4;
+    color: #252020;
+    position: relative;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, opacity 0.7s ease-out;
+    width: 100%;
+    height: 300px;
+}
+
+/* Smooth Zoom-in Effect on Hover */
+.quiz-card:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.616);
+}
+
+/* Image Styling */
+.quiz-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* Text Content */
+.quiz-content {
+    padding: 15px;
+}
+
+.quiz-content h3 {
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.quiz-content h3 span {
+    font-size: 22px;
+    color: #4CAF50;
+}
+
+.quiz-content p {
+    font-size: 14px;
+    color: #555;
+    margin-top: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .quiz-container {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .quiz-container {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    .quiz-content h3 {
+        font-size: 18px;
+    }
+
+    .quiz-content p {
+        font-size: 12px;
+    }
+}

@@ -5,18 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
 </head>
 <body>
     <script src="script.js"></script>
     <nav class="navbar">
         <div class="logo">TRIVIO</div>
-        <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+     
         <ul>
-            <li><a href="#">Home</a></li>
+            <li><a href="home.html">Home</a></li>
             <li><a href="#about-us">About</a></li>
             <li><a href="#">High Score</a></li>
-            <li><a href="#">Themes</a></li>
+            <li><a href="themes.html">Themes</a></li>
             <li><a href="#">Login</a></li>
             <li><a href="#">Contact</a></li>
         </ul>
@@ -29,11 +30,11 @@
             </div></center>
         </div>
     </div>
-    <div class="body-section2">
+    <div class="body-section2" id="about-us">
         <div class="body-section2-image">
             <img src="image2.jpg" alt="Image Here" height="600px" width="auto">
         </div>
-        <div class="body-section2-text" id="about-us">
+        <div class="body-section2-text" >
             <h1>Discover Trivio</h1>
             <h2>Engaging quizzes for everyone</h2><br><br>
             <p>Trivio brings the thrill of quizzes to your fingertips! Tailored for the vibrant youth of today, our app offers a diverse range of quiz themes from general knowledge and history to gaming, animals, technology, and sports. With stunning animations and a sleek design, Trivio enhances your quiz experience like never before.</p>
@@ -114,9 +115,38 @@
                     </div>
                 </div>
             </div>
+            <p class="section-tag"><a href="#themes.html">Explore More  ›</a></p>
         </center>
-    </section>
-
+    </section> 
+    <br><br> 
+    <center><section class="contact-section">
+        <div class="contact-info">
+            <h2>Let's Get in Touch</h2>
+            <p><a href="mailto:info@example.com">info@example.com</a></p>
+            <p>+123 456 7890</p>
+            <div class="social-icons">
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-linkedin"></i>
+            </div>
+        </div>
+    
+        <div class="contact-form">
+            <form id="contactForm">
+                <input type="email" placeholder="Your Email" required>
+                <select>
+                    <option>How can we help?</option>
+                    <option>General Inquiry</option>
+                    <option>Project Discussion</option>
+                </select>
+                <textarea placeholder="Your Message"></textarea>
+                <button type="submit">SEND MESSAGE</button>
+            </form>
+        </div>
+        
+    </section></center> <br><br>
+</div>
 </body>
 </html>
 </body>
