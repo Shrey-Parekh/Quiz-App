@@ -1,18 +1,18 @@
 @font-face {
     font-family: 'Font1';
-    src: url('ImperialScript-Regular.ttf')
+    src: url('/assets/fonts/ImperialScript-Regular.ttf')
 }
 @font-face {
     font-family: 'Font2';
-    src: url('ImperialScript-Regular.ttf')
+    src: url('/assets/fonts/ImperialScript-Regular.ttf')
 }
 @font-face {
     font-family: 'Font3';
-    src: url('DeliusSwashCaps-Regular.ttf')
+    src: url('/assets/fonts/DeliusSwashCaps-Regular.ttf')
 }
 @font-face {
     font-family: 'Font4';
-    src: url('SourGummy-VariableFont_wdth,wght.ttf')
+    src: url('/assets/fonts/SourGummy-VariableFont_wdth,wght.ttf')
 }
 *{
     margin: 0;
@@ -25,13 +25,33 @@ html {
 
 body {
 
-    background-image: url('image1.jpg'); 
+    background-image: url('/assets/images/themesbg.jpeg'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    height: 90vh;
+}
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100vh;
+    background-image: url('/assets/images/themesbg.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(10px); /* Controls the intensity of the blur */
+    z-index: -1; /* Keeps the blur behind the content */
 }
 
+.main-container,
+.navbar,
+.contact-section {
+    position: relative;
+    z-index: 1;
+}
 .navbar {
     display: flex;
     justify-content: space-between;

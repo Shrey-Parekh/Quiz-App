@@ -1,18 +1,18 @@
 @font-face {
     font-family: 'Font1';
-    src: url('ImperialScript-Regular.ttf');
+    src: url('/assets/fonts/ImperialScript-Regular.ttf')
 }
 @font-face {
     font-family: 'Font2';
-    src: url('ImperialScript-Regular.ttf');
+    src: url('/assets/fonts/ImperialScript-Regular.ttf')
 }
 @font-face {
     font-family: 'Font3';
-    src: url('DeliusSwashCaps-Regular.ttf');
+    src: url('/assets/fonts/DeliusSwashCaps-Regular.ttf')
 }
 @font-face {
     font-family: 'Font4';
-    src: url('SourGummy-VariableFont_wdth,wght.ttf');
+    src: url('/assets/fonts/SourGummy-VariableFont_wdth,wght.ttf')
 }
 
 * {
