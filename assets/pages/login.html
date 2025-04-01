@@ -7,24 +7,13 @@
     <link rel="stylesheet" href="/assets/css/login.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">TRIVIO</div>
-        <ul class="nav-links">
-            <li><a href="home.html">Home</a></li>
-            <li><a href="home.html#about-us">About</a></li>
-            <li><a href="highscore.html">High Score</a></li>
-            <li><a href="themes.html">Themes</a></li>
-            <li><a href="login.html">Login</a></li>
-            <li><a href="home.html#contact-section">Contact</a></li>
-        </ul>
-    </nav>
 
     <div class="login-container">
         <h2>Login to Trivio</h2>
         <div class="card">
-            <form action="login_process.php" method="POST">
-                <label for="email" class="form-label">Email address</label><br>
-                <input type="email" id="email" name="email" required>
+            <form id="login-form">
+                <label for="identifier" class="form-label">Email or Phone Number</label><br>
+                <input type="text" id="identifier" name="identifier" required>
                 <br><br>
                 <label for="password" class="form-label">Password</label><br>
                 <input type="password" id="password" name="password" required>
@@ -35,97 +24,70 @@
         <br>
         <p>Don't have an account? <a href="register.html">Register here</a></p>
     </div>
+
 </body>
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-      const form = document.querySelector("form");
-      const emailInput = document.getElementById("email");
-      const passwordInput = document.getElementById("password");
-  
-      // 🔹 Function to show error
-      function showError(input, message) {
-          let parent = input.parentElement;
-          let error = parent.querySelector(".error-message");
-          
-          if (!error) {
-              error = document.createElement("div");
-              error.className = "error-message";
-              parent.appendChild(error);
-          }
-  
-          error.textContent = message;
-          error.style.opacity = "1";
-          error.style.color = "#8B0000"; // Dark Red
-          error.style.fontSize = "14px";
-          error.style.marginTop = "5px";
-          error.style.transition = "opacity 0.3s ease-in-out";
-          
-          input.style.border = "2px solid #8B0000"; // Red Border
-          input.style.boxShadow = "0 0 8px rgba(139, 0, 0, 0.5)";
-      }
-  
-      // 🔹 Function to clear error
-      function clearError(input) {
-          let parent = input.parentElement;
-          let error = parent.querySelector(".error-message");
-          
-          if (error) {
-              error.style.opacity = "0";
-              setTimeout(() => error.remove(), 300);
-          }
-  
-          input.style.border = "2px solid #8B5A2B"; // Reset to default border
-          input.style.boxShadow = "none";
-      }
-  
-      // 🔹 Email Validation
-      function isValidEmail(email) {
-          const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-          return regex.test(email);
-      }
-  
-      // 🔹 Password Validation (Min 8 chars, 1 uppercase, 1 lowercase, 1 number)
-      function isValidPassword(password) {
-          const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-          return regex.test(password);
-      }
-  
-      // 🔹 Validate on Input Change
-      emailInput.addEventListener("input", function () {
-          if (isValidEmail(emailInput.value)) {
-              clearError(emailInput);
-          } else {
-              showError(emailInput, "Invalid email format!");
-          }
-      });
-  
-      passwordInput.addEventListener("input", function () {
-          if (isValidPassword(passwordInput.value)) {
-              clearError(passwordInput);
-          } else {
-              showError(passwordInput, "Password must have 8+ chars, 1 uppercase, 1 lowercase, 1 number.");
-          }
-      });
-  
-      // 🔹 Form Submission Validation
-      form.addEventListener("submit", function (event) {
-          let valid = true;
-  
-          if (!isValidEmail(emailInput.value)) {
-              showError(emailInput, "Invalid email format!");
-              valid = false;
-          }
-  
-          if (!isValidPassword(passwordInput.value)) {
-              showError(passwordInput, "Password must have 8+ chars, 1 uppercase, 1 lowercase, 1 number.");
-              valid = false;
-          }
-  
-          if (!valid) {
-              event.preventDefault(); // Prevent form submission
-          }
-      });
-  });
-  </script>
-  
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("login-form");
+    const identifierInput = document.getElementById("identifier");
+    const passwordInput = document.getElementById("password");
+
+    // ✅ Validate email or phone number format
+    function isValidIdentifier(input) {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const phoneRegex = /^[6-9]\d{9}$/; // Assumes a 10-digit Indian phone number
+        return emailRegex.test(input) || phoneRegex.test(input);
+    }
+
+    // ✅ Validate password (Min 8 chars, 1 uppercase, 1 lowercase, 1 number)
+    function isValidPassword(password) {
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+        return regex.test(password);
+    }
+
+    // ✅ Show error message
+    function showError(input, message) {
+        alert(message); // Simple alert for now (improve later with UI changes)
+        input.focus();
+    }
+
+    // ✅ Form submission
+    form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent default form submission
+
+        const identifier = identifierInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        if (!isValidIdentifier(identifier)) {
+            showError(identifierInput, "Please enter a valid Email or Phone Number!");
+            return;
+        }
+
+        if (!isValidPassword(password)) {
+            showError(passwordInput, "Password must have 8+ chars, 1 uppercase, 1 lowercase, 1 number.");
+            return;
+        }
+
+        // ✅ Send login request to backend
+        fetch("http://localhost:3000/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ identifier, password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("✅ Login successful!");
+                window.location.href = "home.html"; // Redirect to home page
+            } else {
+                showError(passwordInput, "❌ Incorrect Email/Phone or Password!");
+            }
+        })
+        .catch(error => {
+            console.error("Error during login:", error);
+            alert("❗ Error connecting to the server.");
+        });
+    });
+});
+</script>
 </html>

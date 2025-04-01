@@ -202,3 +202,17 @@ CREATE TABLE user_scores (
 );
 
 SHOW TABLES;
+
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    phone VARCHAR(15) NOT NULL,
+    dob DATE NOT NULL,
+    gender ENUM('male', 'female', 'other') NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+select * from users; 

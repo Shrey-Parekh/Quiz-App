@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Shrey-Parekh/Quiz-App#readme",
   "description": "",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "mysql2": "^3.14.0"
