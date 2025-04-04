@@ -7,87 +7,130 @@
     <link rel="stylesheet" href="/assets/css/login.css">
 </head>
 <body>
-
     <div class="login-container">
         <h2>Login to Trivio</h2>
         <div class="card">
             <form id="login-form">
-                <label for="identifier" class="form-label">Email or Phone Number</label><br>
-                <input type="text" id="identifier" name="identifier" required>
-                <br><br>
-                <label for="password" class="form-label">Password</label><br>
-                <input type="password" id="password" name="password" required>
-                <br><br>            
-                <button type="submit" class="btn-primary">Login</button><br><br>
+                <div class="form-group">
+                    <label for="identifier" class="form-label">Email or Phone Number</label>
+                    <input type="text" id="identifier" name="identifier" required>
+                    <div class="error-message" id="identifier-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" name="password" required>
+                    <div class="error-message" id="password-error"></div>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    <span>Login</span>
+                    <div class="loading-spinner"></div>
+                </button>
             </form>
         </div>
-        <br>
         <p>Don't have an account? <a href="register.html">Register here</a></p>
     </div>
 
-</body>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("login-form");
-    const identifierInput = document.getElementById("identifier");
-    const passwordInput = document.getElementById("password");
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("login-form");
+            const identifierInput = document.getElementById("identifier");
+            const passwordInput = document.getElementById("password");
+            const identifierError = document.getElementById("identifier-error");
+            const passwordError = document.getElementById("password-error");
+            const submitButton = form.querySelector("button[type='submit']");
+            const buttonText = submitButton.querySelector("span");
+            const loadingSpinner = submitButton.querySelector(".loading-spinner");
 
-    // ✅ Validate email or phone number format
-    function isValidIdentifier(input) {
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        const phoneRegex = /^[6-9]\d{9}$/; // Assumes a 10-digit Indian phone number
-        return emailRegex.test(input) || phoneRegex.test(input);
-    }
-
-    // ✅ Validate password (Min 8 chars, 1 uppercase, 1 lowercase, 1 number)
-    function isValidPassword(password) {
-        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-        return regex.test(password);
-    }
-
-    // ✅ Show error message
-    function showError(input, message) {
-        alert(message); // Simple alert for now (improve later with UI changes)
-        input.focus();
-    }
-
-    // ✅ Form submission
-    form.addEventListener("submit", function (event) {
-        event.preventDefault(); // Prevent default form submission
-
-        const identifier = identifierInput.value.trim();
-        const password = passwordInput.value.trim();
-
-        if (!isValidIdentifier(identifier)) {
-            showError(identifierInput, "Please enter a valid Email or Phone Number!");
-            return;
-        }
-
-        if (!isValidPassword(password)) {
-            showError(passwordInput, "Password must have 8+ chars, 1 uppercase, 1 lowercase, 1 number.");
-            return;
-        }
-
-        // ✅ Send login request to backend
-        fetch("http://localhost:3000/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ identifier, password })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert("✅ Login successful!");
-                window.location.href = "home.html"; // Redirect to home page
-            } else {
-                showError(passwordInput, "❌ Incorrect Email/Phone or Password!");
+            function showError(input, errorElement, message) {
+                input.classList.add("input-error");
+                errorElement.textContent = message;
+                errorElement.style.display = "block";
             }
-        })
-        .catch(error => {
-            console.error("Error during login:", error);
-            alert("❗ Error connecting to the server.");
+
+            function clearError(input, errorElement) {
+                input.classList.remove("input-error");
+                errorElement.style.display = "none";
+            }
+
+            function showSuccess(input) {
+                input.classList.add("input-success");
+                setTimeout(() => input.classList.remove("input-success"), 2000);
+            }
+
+            function setLoading(isLoading) {
+                submitButton.disabled = isLoading;
+                buttonText.style.display = isLoading ? "none" : "inline";
+                loadingSpinner.style.display = isLoading ? "block" : "none";
+            }
+
+            function isValidIdentifier(input) {
+                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                const phoneRegex = /^[6-9]\d{9}$/;
+                return emailRegex.test(input) || phoneRegex.test(input);
+            }
+
+            function isValidPassword(password) {
+                return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password);
+            }
+
+            form.addEventListener("submit", async function (event) {
+                event.preventDefault();
+                let hasError = false;
+
+                // Clear previous errors
+                clearError(identifierInput, identifierError);
+                clearError(passwordInput, passwordError);
+
+                const identifier = identifierInput.value.trim();
+                const password = passwordInput.value.trim();
+
+                if (!isValidIdentifier(identifier)) {
+                    showError(identifierInput, identifierError, "Please enter a valid Email or Phone Number!");
+                    hasError = true;
+                }
+
+                if (!isValidPassword(password)) {
+                    showError(passwordInput, passwordError, "Password must have 8+ chars, 1 uppercase, 1 lowercase, 1 number.");
+                    hasError = true;
+                }
+
+                if (hasError) return;
+
+                setLoading(true);
+
+                try {
+                    const response = await fetch("http://localhost:3000/login", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ identifier, password })
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        showSuccess(identifierInput);
+                        showSuccess(passwordInput);
+                        localStorage.setItem("username", data.user.username);
+                        localStorage.setItem("email", data.user.email);
+                        
+                        // Add success animation before redirect
+                        form.style.animation = "fadeOut 0.5s ease-out forwards";
+                        setTimeout(() => {
+                            window.location.href = "home.html";
+                        }, 500);
+                    } else {
+                        showError(passwordInput, passwordError, "❌ Incorrect Email/Phone or Password!");
+                    }
+                } catch (error) {
+                    showError(passwordInput, passwordError, "❗ Error connecting to the server.");
+                    console.error("Error during login:", error);
+                } finally {
+                    setLoading(false);
+                }
+            });
         });
-    });
-});
-</script>
+    </script>
+</body>
 </html>

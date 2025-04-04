@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback & Reviews - TRIVIO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/review.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">TRIVIO</div>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="coding.html#python">Python</a></li>
+            <li><a href="coding.html#javascript">JavaScript</a></li>
+            <li><a href="themes.html">Themes</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="#footer">Contact</a></li>
+        </ul>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <div class="header-container">
+        <div class="header-text">
+            <p>Your Feedback Matters</p>
+            <p style="font-size: 24px; margin-top: 20px;">Help us improve your learning experience</p>
+        </div>
+    </div>
+
+    <!-- Feedback Form Section -->
+    <section id="feedback-form" class="form-section">
+        <div class="form-container">
+            <h2 class="form-title">Share Your Thoughts</h2>
+            <p class="form-description">
+                We value your feedback! Please take a moment to let us know about your experience with our content and services.
+                Your insights help us continually improve and tailor our offerings to better meet your needs.
+            </p>
+            
+            <form id="reviewForm" autocomplete="off">
+                <!-- Personal Information -->
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name">
+                    <div class="error" id="name-error">Please enter your name</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email">
+                    <div class="error" id="email-error">Please enter a valid email address</div>
+                </div>
+                
+                <!-- Star Rating -->
+                <div class="rating-container">
+                    <div class="rating-title">Rate Your Overall Experience</div>
+                    <div class="stars" id="rating-stars">
+                        <i class="fas fa-star" data-value="1"></i>
+                        <i class="fas fa-star" data-value="2"></i>
+                        <i class="fas fa-star" data-value="3"></i>
+                        <i class="fas fa-star" data-value="4"></i>
+                        <i class="fas fa-star" data-value="5"></i>
+                    </div>
+                    <input type="hidden" id="rating" name="rating" value="0">
+                    <div class="error" id="rating-error">Please select a rating</div>
+                </div>
+                
+                <!-- Feedback Type -->
+                <div class="form-group">
+                    <label for="feedback-type">Type of Feedback</label>
+                    <select id="feedback-type" name="feedbackType" class="form-control">
+                        <option value="">Select feedback type</option>
+                        <option value="general">General Feedback</option>
+                        <option value="content">Content Suggestion</option>
+                        <option value="bug">Bug Report</option>
+                        <option value="feature">Quiz feedback</option>
+                    </select>
+                    <div class="error" id="feedback-type-error">Please select a feedback type</div>
+                </div>
+                
+                <!-- Feedback Content -->
+                <div class="form-group">
+                    <label for="feedback">Your Feedback</label>
+                    <textarea id="feedback" name="feedback" class="form-control" placeholder="Please share your thoughts, suggestions, or issues you've encountered..."></textarea>
+                    <div class="error" id="feedback-error">Please provide your feedback</div>
+                </div>
+                
+                <!-- Optional: How did you find us? -->
+                <div class="form-group">
+                    <label for="discovery">How did you find us? (Optional)</label>
+                    <select id="discovery" name="discovery" class="form-control">
+                        <option value="">Select an option</option>
+                        <option value="search">Search Engine</option>
+                        <option value="social">Social Media</option>
+                        <option value="friend">Friend Recommendation</option>
+                        <option value="ad">Advertisement</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <!-- Submit Button -->
+                <button type="submit" id="submit-btn" class="submit-btn">Submit Feedback</button>
+                
+                <!-- Success Message -->
+                <div class="success-message" id="success-message">
+                    <i class="fas fa-check-circle" style="font-size: 28px; margin-bottom: 10px;"></i>
+                    <p>Thank you for your feedback! We appreciate your input.</p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer" class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">TRIVIO</div>
+            <div class="footer-links">
+                <a href="home.html">Home</a>
+                <a href="highscore.html">High Score</a>
+
+                <a href="themes.html">Quiz</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="coding.html">Learn More</a>
+            </div>
+            <div class="social-icons">
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-linkedin"></i>
+            </div>
+            <p>&copy; 2025 TRIVIO. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle mobile menu
+        function toggleMenu() {
+            document.querySelector(".navbar ul").classList.toggle("active");
+        }
+
+        // Add scroll effect to navbar
+        window.addEventListener("scroll", function() {
+            const navbar = document.querySelector(".navbar");
+            if (window.scrollY > 50) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        });
+
+        // Animation for sections when scrolled into view
+        document.addEventListener("DOMContentLoaded", function() {
+            const sections = document.querySelectorAll(".form-section");
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                    }
+                });
+            }, { threshold: 0.15 });
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Star rating functionality
+            const stars = document.querySelectorAll('#rating-stars i');
+            const ratingInput = document.getElementById('rating');
+            
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const value = this.getAttribute('data-value');
+                    ratingInput.value = value;
+                    
+                    // Reset all stars
+                    stars.forEach(s => s.classList.remove('active'));
+                    
+                    // Highlight selected stars
+                    for(let i = 0; i < value; i++) {
+                        stars[i].classList.add('active');
+                    }
+                });
+            });
+            
+            // Form validation and submission
+            const form = document.getElementById('reviewForm');
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const feedbackTypeInput = document.getElementById('feedback-type');
+            const feedbackInput = document.getElementById('feedback');
+            const submitBtn = document.getElementById('submit-btn');
+            const successMessage = document.getElementById('success-message');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Reset errors
+                const errorElements = document.querySelectorAll('.error');
+                errorElements.forEach(el => el.style.display = 'none');
+                
+                const formControls = document.querySelectorAll('.form-control');
+                formControls.forEach(el => el.classList.remove('error-field'));
+                
+                // Validate form
+                let isValid = true;
+                
+                // Name validation
+                if (nameInput.value.trim() === '') {
+                    document.getElementById('name-error').style.display = 'block';
+                    nameInput.classList.add('error-field');
+                    isValid = false;
+                }
+                
+                // Email validation
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(emailInput.value)) {
+                    document.getElementById('email-error').style.display = 'block';
+                    emailInput.classList.add('error-field');
+                    isValid = false;
+                }
+                
+                // Rating validation
+                if (ratingInput.value === '0') {
+                    document.getElementById('rating-error').style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Feedback type validation
+                if (feedbackTypeInput.value === '') {
+                    document.getElementById('feedback-type-error').style.display = 'block';
+                    feedbackTypeInput.classList.add('error-field');
+                    isValid = false;
+                }
+                
+                // Feedback content validation
+                if (feedbackInput.value.trim() === '') {
+                    document.getElementById('feedback-error').style.display = 'block';
+                    feedbackInput.classList.add('error-field');
+                    isValid = false;
+                }
+                
+                if (isValid) {
+                    // Collect form data for submission
+                    const formData = {
+                        name: nameInput.value,
+                        email: emailInput.value,
+                        rating: parseInt(ratingInput.value),
+                        feedback_type: feedbackTypeInput.value,
+                        feedback: feedbackInput.value,
+                        discovery: document.getElementById('discovery').value
+                    };
+                    
+                    console.log('Form data ready for submission:', formData);
+                    
+                    // Disable button and change text
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Submitting...';
+                    
+                    // Send data to backend
+                    fetch('http://localhost:3000/submit-review', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData)
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Success:', data);
+                        
+                        // Show success message
+                        successMessage.style.display = 'block';
+                        
+                        // Reset form
+                        form.reset();
+                        stars.forEach(s => s.classList.remove('active'));
+                        ratingInput.value = '0';
+                        
+                        // Reset button
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Submit Feedback';
+                        
+                        // Scroll to success message
+                        successMessage.scrollIntoView({ behavior: 'smooth' });
+                        
+                        // Hide success message after some time
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                        }, 5000);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('There was an error submitting your feedback. Please try again.');
+                        
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Submit Feedback';
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

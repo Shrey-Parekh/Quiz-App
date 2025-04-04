@@ -6,7 +6,7 @@
     <title>Home</title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <script src="/assets/javascript/script.js"></script>
+    <script src="/assets/javascript/auth.js"></script>
 </head>
 <body>
     <nav class="navbar">
@@ -16,8 +16,16 @@
             <li><a href="#about-us">About</a></li>
             <li><a href="highscore.html">High Score</a></li>
             <li><a href="themes.html">Themes</a></li>
-            <li><a href="login.html">Login</a></li>
-            <li><a href="#contact-section">Contact</a></li>
+            <li><a href="leaderboard.html">Stats</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="reivew.html">Feedback</a></li>
+            <li id="auth-links">
+                <a href="login.html" id="login-link">Login</a>
+                <a href="register.html" id="register-link">Register</a>
+                <a href="#" id="logout-link" style="display: none;">Logout</a>
+            </li>
+            <li><a href="contact.html">Contact Us</a></li>
+            
         </ul>
     </nav>
 
@@ -25,7 +33,7 @@
         <div class="main-container-text">
             <p>Challenge Your Mind!</p><br>
             <center><div class="main-container-button">
-                <a href="">PLAY</a>
+                <a href="themes.html">PLAY</a>
             </div></center>
         </div>
     </div>
@@ -38,6 +46,9 @@
             <h1>Discover Trivio</h1>
             <h2>Engaging quizzes for everyone</h2><br><br>
             <p>Trivio brings the thrill of quizzes to your fingertips! Tailored for the vibrant youth of today, our app offers a diverse range of quiz themes from general knowledge and history to gaming, animals, technology, and sports. With stunning animations and a sleek design, Trivio enhances your quiz experience like never before.</p>
+            <div class="about-button">
+                <a href="aboutus.html">Learn More About Us</a>
+            </div>
         </div>
     </div>
 
@@ -113,6 +124,71 @@
                                 <p>Challenge yourself with math puzzles.</p>
                             </div>
                         </a>
+
+                        <!-- Duplicate cards for seamless loop -->
+                        <a href="themes.html" class="quiz-card">
+                            <img src="/assets/images/image3.jpg" alt="General Knowledge">
+                            <div class="quiz-content">
+                                <h3>General Knowledge <span>›</span></h3>
+                                <p>Test your brainpower with exciting quizzes.</p>
+                            </div>
+                        </a>
+
+                        <a href="themes.html" class="quiz-card">
+                            <img src="/assets/images/image4.jpg" alt="Technology">
+                            <div class="quiz-content">
+                                <h3>Technology <span>›</span></h3>
+                                <p>Explore the latest tech trends.</p>
+                            </div>
+                        </a>
+
+                        <a href="themes.html" class="quiz-card">
+                            <img src="/assets/images/image5.jpg" alt="Sports">
+                            <div class="quiz-content">
+                                <h3>Sports <span>›</span></h3>
+                                <p>Challenge your sports knowledge.</p>
+                            </div>
+                        </a>
+
+                        <a href="themes.html" class="quiz-card">
+                            <img src="/assets/images/image6.jpg" alt="Animals">
+                            <div class="quiz-content">
+                                <h3>Wildlife <span>›</span></h3>
+                                <p>Discover amazing facts about wildlife.</p>
+                            </div>
+                        </a>
+
+                        <a href="themes.html" class="quiz-card">
+                            <img src="/assets/images/image7.jpg" alt="History">
+                            <div class="quiz-content">
+                                <h3>History <span>›</span></h3>
+                                <p>Learn about the past and its impact.</p>
+                            </div>
+                        </a>
+
+                        <a href="themes.html" class="quiz-card">
+                            <img src="/assets/images/image8.jpg" alt="Geography">
+                            <div class="quiz-content">
+                                <h3>Geography <span>›</span></h3>
+                                <p>Test your knowledge about the world.</p>
+                            </div>
+                        </a>
+
+                        <a href="themes.html" class="quiz-card">
+                            <img src="/assets/images/image9.jpg" alt="Science">
+                            <div class="quiz-content">
+                                <h3>Science <span>›</span></h3>
+                                <p>Explore the wonders of science.</p>
+                            </div>
+                        </a>
+
+                        <a href="themes.html" class="quiz-card">
+                            <img src="/assets/images/image10.jpg" alt="Maths">
+                            <div class="quiz-content">
+                                <h3>Maths <span>›</span></h3>
+                                <p>Challenge yourself with math puzzles.</p>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -120,34 +196,33 @@
         </center>
     </section> 
 
-    <br><br> 
-    <center><section class="contact-section" id="contact-section">
-        <div class="contact-info">
-            <h2>Let's Get in Touch</h2>
-            <p><a href="mailto:info@example.com">info@example.com</a></p>
-            <p>+91 12345 67890</p>
+    <footer id="footer" class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">TRIVIO</div>
+            <div class="footer-links">
+                <a href="home.html">Home</a>
+                <a href="highscore.html">High Score</a>
+
+                <a href="themes.html">Quiz</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="coding.html">Learn More</a>
+            </div>
             <div class="social-icons">
                 <i class="fab fa-facebook"></i>
                 <i class="fab fa-twitter"></i>
                 <i class="fab fa-instagram"></i>
                 <i class="fab fa-linkedin"></i>
             </div>
+            <p>&copy; 2025 TRIVIO. All rights reserved.</p>
         </div>
-    
-        <div class="contact-form">
-            <form id="contactForm">
-                <input type="email" placeholder="Your Email" required>
-                <select>
-                    <option>How can we help?</option>
-                    <option>General Inquiry</option>
-                    <option>Feedback</option>
-                </select>
-                <textarea placeholder="Your Message"></textarea>
-                <button type="submit">SEND MESSAGE</button>
-            </form>
-        </div>
-        
-    </section></center> 
-    <br><br>
+    </footer>
+
+    <script>
+        // Initialize authentication on page load
+        document.addEventListener("DOMContentLoaded", function() {
+            // Update navigation based on login status
+            auth.updateNavigation();
+        });
+    </script>
 </body>
 </html>

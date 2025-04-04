@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Trivio Quiz App</title>
+    <link rel="stylesheet" href="/assets/css/about.css">
+    <link rel="stylesheet" href="/assets/css/contact.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="/assets/javascript/script.js"></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">TRIVIO</div>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="aboutus.html">About</a></li>
+            <li><a href="highscore.html">High Score</a></li>
+            <li><a href="themes.html">Themes</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+    </nav>
+
+    <!-- Contact Hero Section -->
+    <section class="contact-hero">
+        <div class="hero-content">
+            <h1>Get in Touch</h1>
+            <p>Have questions? We'd love to hear from you!</p>
+        </div>
+    </section>
+
+    <!-- Contact Information Section -->
+    <section class="contact-info-section">
+        <div class="contact-container">
+            <div class="contact-grid">
+                <!-- Contact Form -->
+                <div class="contact-form-container">
+                    <h2>Send us a Message</h2>
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                            <div class="input-focus-effect"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                            <div class="input-focus-effect"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Select a subject</option>
+                                <option value="general">General Inquiry</option>
+                                <option value="support">Technical Support</option>
+                                <option value="business">Business Partnership</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <div class="input-focus-effect"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                            <div class="input-focus-effect"></div>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <span>Send Message</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Details -->
+                <div class="contact-details">
+                    <h2>Contact Information</h2>
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="method-content">
+                                <h3>Address</h3>
+                                <p style="font-family: monospace;">NMIMS MPSTME, Parle (West), Mumbai.</p>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-phone"></i>
+                            <div class="method-content">
+                                <h3>Phone</h3>
+                                <p>+91 12345 67890</p>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-envelope"></i>
+                            <div class="method-content">
+                                <h3>Email</h3>
+                                <p>support@trivio.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Media Links -->
+                    <div class="social-connect">
+                        <h3>Connect With Us</h3>
+                        <div class="social-icons">
+                            <a href="#" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-icon" title="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Section -->
+                    <div class="faq-section">
+                        <h3>Frequently Asked Questions</h3>
+                        <div class="faq-list">
+                            <div class="faq-item">
+                                <h4>What quiz categories are available?</h4>
+                                <p>We offer a wide range of categories including General Knowledge, Science, Sports, Technology, Movies, Space, and many more. Each category has multiple difficulty levels to suit your expertise.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>How can I report a technical issue?</h4>
+                                <p>Use the "Technical Support" option in the contact form above to report any issues you encounter.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>How can I become a business partner?</h4>
+                                <p>Select the "Business Partnership" option in the contact form and provide your details for our team to review.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer id="footer" class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">TRIVIO</div>
+            <div class="footer-links">
+                <a href="home.html">Home</a>
+                <a href="highscore.html">High Score</a>
+                <a href="themes.html">Quiz</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="coding.html">Learn More</a>
+            </div>
+            <div class="social-icons">
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-linkedin"></i>
+            </div>
+            <p>&copy; 2025 TRIVIO. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Form Submission Handler
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+
+            try {
+                const submitBtn = this.querySelector('.submit-btn');
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                submitBtn.disabled = true;
+
+                const response = await fetch('http://localhost:3000/submit-contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent Successfully!';
+                    submitBtn.classList.add('form-success');
+                    this.reset();
+                    
+                    setTimeout(() => {
+                        submitBtn.innerHTML = '<span>Send Message</span><i class="fas fa-paper-plane"></i>';
+                        submitBtn.classList.remove('form-success');
+                        submitBtn.disabled = false;
+                    }, 2000);
+                } else {
+                    throw new Error(data.error || 'Failed to send message');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                const submitBtn = this.querySelector('.submit-btn');
+                submitBtn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Error!';
+                submitBtn.disabled = false;
+                
+                setTimeout(() => {
+                    submitBtn.innerHTML = '<span>Send Message</span><i class="fas fa-paper-plane"></i>';
+                }, 2000);
+            }
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // FAQ Toggle Effect
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const answer = this.querySelector('p');
+                const isOpen = this.classList.contains('active');
+                
+                // Close all other FAQs
+                document.querySelectorAll('.faq-item').forEach(faq => {
+                    faq.classList.remove('active');
+                    faq.querySelector('p').style.maxHeight = null;
+                });
+                
+                // Toggle current FAQ
+                if (!isOpen) {
+                    this.classList.add('active');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                }
+            });
+        });
+
+        // Input focus effect
+        document.querySelectorAll('.form-group input, .form-group select, .form-group textarea').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('focused');
+            });
+            
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.parentElement.classList.remove('focused');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

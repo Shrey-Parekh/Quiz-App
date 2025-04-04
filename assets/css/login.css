@@ -113,22 +113,24 @@ h2 {
     color: #5C4033;
 }
 
+/* Enhanced Card Animation */
 .card {
     position: relative;
     overflow: hidden;
     border-radius: 15px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     padding: 35px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     max-width: 420px;
     width: 100%;
     border: 2px solid rgba(139, 69, 19, 0.3);
     background: rgba(245, 222, 179, 0.5);
+    transform-origin: center;
 }
 
 .card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transform: scale(1.02) translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 }
 
 .form-label {
@@ -137,79 +139,151 @@ h2 {
     color: #4B3621;
 }
 
-
+/* Enhanced Input Field Styling */
 input[type="text"],
 input[type="password"] {
     width: 100%;
-    padding: 12px;
+    padding: 12px 15px;
     font-size: 16px;
     border: 2px solid #8B5A2B;
     border-radius: 8px;
-    background: whitesmoke;
+    background: rgba(255, 255, 255, 0.9);
     color: #3D2C2E;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     outline: none;
     position: relative;
+    margin-bottom: 5px;
 }
 
-/* Input field animation */
-input[type="email"]:focus,
-input[type="password"]:focus,
-input[type="email"]:hover,
-input[type="password"]:hover {
+/* Input Focus Effect */
+input:focus {
     border-color: #252020;
-    box-shadow: 0 0 12px rgba(92, 64, 51, 0.6);
-    transform: scale(1.02);
+    box-shadow: 0 0 15px rgba(92, 64, 51, 0.4);
+    transform: translateY(-2px);
+    background: white;
 }
 
-
-input[type="email"]::placeholder,
-input[type="password"]::placeholder {
-    color: rgba(61, 44, 46, 0.7);
-    transition: all 0.3s ease-in-out;
-}
-
-input[type="email"]:focus::placeholder,
-input[type="password"]:focus::placeholder {
-    color: rgba(61, 44, 46, 0.3);
-    transform: translateY(-5px);
-}
-
-/* Subtle shake effect on invalid input */
-input[type="email"]:invalid,
-input[type="password"]:invalid {
-    border-color: #2e2424;
-    animation: shake 0.3s ease-in-out;
-    border-width: 1px;
-}
-
-@keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-4px); }
-    50% { transform: translateX(4px); }
-    75% { transform: translateX(-4px); }
-    100% { transform: translateX(0); }
-}
-
-
-
-/* Button */
+/* Enhanced Button Styling */
 .btn-primary {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     font-size: 18px;
     font-weight: bold;
     border-radius: 8px;
-    background: #8B5A2B;
+    background: linear-gradient(135deg, #8B5A2B, #5C4033);
     border: none;
     color: white;
     cursor: pointer;
-    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    margin-top: 15px;
 }
 
 .btn-primary:hover {
-    background: #5C4033;
-    transform: scale(1.05);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(92, 64, 51, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(1px);
+}
+
+/* Error Message Styling */
+.error-message {
+    color: #d32f2f;
+    font-size: 14px;
+    margin-top: 5px;
+    padding: 8px 12px;
+    background: rgba(211, 47, 47, 0.1);
+    border-radius: 4px;
+    display: none;
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Success Message Styling */
+.success-message {
+    color: #2e7d32;
+    font-size: 14px;
+    margin-top: 5px;
+    padding: 8px 12px;
+    background: rgba(46, 125, 50, 0.1);
+    border-radius: 4px;
+    display: none;
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Form Group Animation */
+.form-group {
+    position: relative;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.form-group:nth-child(1) { animation-delay: 0.1s; }
+.form-group:nth-child(2) { animation-delay: 0.2s; }
+.form-group:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Input Shake Animation */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.input-error {
+    animation: shake 0.5s ease-in-out;
+    border-color: #d32f2f !important;
+    background: rgba(211, 47, 47, 0.05) !important;
+}
+
+/* Success State */
+.input-success {
+    border-color: #2e7d32 !important;
+    background: rgba(46, 125, 50, 0.05) !important;
 }
 
 p {

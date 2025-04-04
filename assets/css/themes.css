@@ -116,15 +116,39 @@ body {
     position: relative;
     opacity: 0;
     transform: translateY(50px);
-    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, opacity 0.7s ease-out;
     width: 100%;
     height: 300px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Smooth Zoom-in Effect on Hover */
+/* CSS Animation for cards */
+.quiz-card.animate {
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Enhanced Hover Effect */
 .quiz-card:hover {
-    transform: scale(1.05) !important;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.616);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.quiz-card:hover img {
+    transform: scale(1.1);
+}
+
+.quiz-card:hover .quiz-content {
+    transform: translateY(-5px);
 }
 
 /* Image Styling */
@@ -132,11 +156,13 @@ body {
     width: 100%;
     height: 180px;
     object-fit: cover;
+    transition: transform 0.4s ease;
 }
 
 /* Text Content */
 .quiz-content {
     padding: 15px;
+    transition: transform 0.4s ease;
 }
 
 .quiz-content h3 {
@@ -144,11 +170,21 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: color 0.3s ease;
+}
+
+.quiz-card:hover .quiz-content h3 {
+    color: #4CAF50;
 }
 
 .quiz-content h3 span {
     font-size: 22px;
     color: #4CAF50;
+    transition: transform 0.3s ease;
+}
+
+.quiz-card:hover .quiz-content h3 span {
+    transform: translateX(5px);
 }
 
 .quiz-content p {
@@ -176,4 +212,62 @@ body {
     .quiz-content p {
         font-size: 12px;
     }
+}
+.footer {
+    background-color: #252020;
+    color: antiquewhite;
+    text-align: center;
+    padding: 40px 20px;
+    font-family: Font3, sans-serif;
+}
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+.footer-logo {
+    font-size: 30px;
+    font-weight: bold;
+}
+.footer-links {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.footer-links a {
+    color: antiquewhite;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.footer-links a:hover {
+    color: white;
+    font-weight: bold;
+}
+.social-icons {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+.social-icons i {
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.4s ease, color 0.3s;
+}
+.social-icons i:hover {
+    color: #8B7355;
+    transform: scale(1.4) rotate(15deg);
+}
+
+/* Form error styles */
+.error {
+    color: #d9534f;
+    font-size: 14px;
+    margin-top: 5px;
+    font-family: Font3, sans-serif;
+    display: none;
+}
+.form-control.error-field {
+    border-color: #d9534f;
 }
