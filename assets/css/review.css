@@ -222,7 +222,7 @@ body::before {
 /* Header section */
 .header-container {
     background-color: rgba(0, 0, 0, 0.623);
-    height: 50vh;
+    height: 100vh;
     width: 100%;
     display: flex;
     justify-content: center;
