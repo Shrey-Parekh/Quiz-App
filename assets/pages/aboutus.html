@@ -13,15 +13,19 @@
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="logo">TRIVIO</div>
+
         <ul>
             <li><a href="home.html">Home</a></li>
-            <li><a href="#about-us">About</a></li>
+            <li><a href="aboutus.html">About</a></li>
             <li><a href="highscore.html">High Score</a></li>
             <li><a href="themes.html">Themes</a></li>
-            <li><a href="login.html">Login</a></li>
+            <li><a href="highscore.html">Leaderboard</a></li>
+            <li><a href="sub.html">Subscribe</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="reivew.html">Feedback</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
         </ul>
     </nav>
-
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-content">
@@ -29,6 +33,7 @@
             <p>The ultimate destination for fun and knowledge.</p>
             <a href="#about-section" class="hero-btn">Explore More</a>
         </div>
+        <div class="section-transition-light"></div>
     </section>
 
     <!-- About Section -->
@@ -58,6 +63,7 @@
                 <a href="#team-section" class="about-btn">Meet Our Team</a>
             </div>
         </div>
+        <div class="section-transition-dark"></div>
     </section>
 
     <!-- Impact Section -->
@@ -89,29 +95,19 @@
                             <i class="fas fa-quote-left"></i>
                             <p>"Trivio transformed how I study. The interactive format makes learning fun and effective!"</p>
                         </div>
-                        <div class="author-info">
-                            <h4>Sarah Mitchell</h4>
-                            <p>Medical Student</p>
-                        </div>
+
                     </div>
                     <div class="testimonial">
                         <div class="testimonial-content">
                             <i class="fas fa-quote-left"></i>
                             <p>"The variety of topics and difficulty levels keeps me engaged. Best learning platform ever!"</p>
                         </div>
-                        <div class="author-info">
-                            <h4>James Wilson</h4>
-                            <p>Professional Developer</p>
-                        </div>
+
                     </div>
                     <div class="testimonial">
                         <div class="testimonial-content">
                             <i class="fas fa-quote-left"></i>
                             <p>"As a teacher, I love how Trivio makes learning interactive. My students are more engaged than ever!"</p>
-                        </div>
-                        <div class="author-info">
-                            <h4>Maria Garcia</h4>
-                            <p>High School Teacher</p>
                         </div>
                     </div>
                     <div class="testimonial">
@@ -119,20 +115,14 @@
                             <i class="fas fa-quote-left"></i>
                             <p>"The AI-powered features are incredible! It adapts perfectly to my learning style."</p>
                         </div>
-                        <div class="author-info">
-                            <h4>David Chen</h4>
-                            <p>Computer Science Student</p>
-                        </div>
+
                     </div>
                     <div class="testimonial">
                         <div class="testimonial-content">
                             <i class="fas fa-quote-left"></i>
                             <p>"I use Trivio to prepare for my certification exams. The practice questions are spot-on!"</p>
                         </div>
-                        <div class="author-info">
-                            <h4>Lisa Thompson</h4>
-                            <p>IT Professional</p>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -158,6 +148,7 @@
                 </div>
             </div>
         </div>
+        <div class="section-transition-light"></div>
     </section>
 
     <!-- History Section -->
@@ -186,6 +177,7 @@
                 </div>
             </div>
         </div>
+        <div class="section-transition-dark"></div>
     </section>
 
     <!-- Team Section -->
@@ -193,9 +185,9 @@
         <h2 class="section-title">Meet Our Team</h2>
         <div class="team-grid">
             <div class="team-member">
-
+                <img src="/assets/images/saumil.png" alt="Saumil Savant" class="member-img">
                 <div class="member-info">
-                    <h3>Alex Johnson</h3>
+                    <h3>Saumil Savant</h3>
                     <p>Founder & CEO</p>
                     <div class="member-bio">Passionate about making learning fun for everyone.</div>
                     <div class="member-social">
@@ -206,9 +198,9 @@
                 </div>
             </div>
             <div class="team-member">
-
+                <img src="/assets/images/shrey.jpg" alt="Shrey Parekh" class="member-img">
                 <div class="member-info">
-                    <h3>Emily Carter</h3>
+                    <h3>Shrey Parekh</h3>
                     <p>Lead Developer</p>
                     <div class="member-bio">Loves coding and designing seamless experiences.</div>
                     <div class="member-social">
@@ -219,9 +211,9 @@
                 </div>
             </div>
             <div class="team-member">
-
+                <img src="/assets/images/pranav.jpg" alt="Pranav Haku" class="member-img">
                 <div class="member-info">
-                    <h3>Sarah Chen</h3>
+                    <h3>Pranav Haku</h3>
                     <p>UI/UX Designer</p>
                     <div class="member-bio">Creating beautiful and intuitive interfaces.</div>
                     <div class="member-social">
@@ -232,6 +224,7 @@
                 </div>
             </div>
         </div>
+        <div class="section-transition-light"></div>
     </section>
 
     <!-- Features Section -->
@@ -257,6 +250,7 @@
                 <a href="#" class="feature-link">Join Community</a>
             </div>
         </div>
+        <div class="section-transition-dark"></div>
     </section>
 
     <!-- Stats Section -->
@@ -310,10 +304,6 @@
         </div>
     </section>
 
-    
-
- 
-   
     <!-- Footer Section -->
     <footer id="footer" class="footer">
         <div class="footer-content">
@@ -336,8 +326,108 @@
     </footer>
 
     <script>
+        // Toggle menu function
+        function toggleMenu() {
+            document.querySelector(".navbar ul").classList.toggle("active");
+        }
+
         // Intersection Observer for animations
         document.addEventListener('DOMContentLoaded', function() {
+            // Enhanced navbar functionality
+            const navbar = document.querySelector(".navbar");
+            const navLinks = document.querySelectorAll(".navbar ul li a");
+            
+            // Set active link based on current page
+            const currentLocation = window.location.pathname;
+            navLinks.forEach(link => {
+                try {
+                    const linkPath = new URL(link.href).pathname;
+                    if (currentLocation === linkPath || 
+                        (currentLocation.includes(linkPath) && linkPath !== '/assets/pages/home.html' && 
+                        linkPath !== '/' && linkPath.length > 1)) {
+                        link.classList.add('active');
+                    }
+                    
+                    // Special case for home page
+                    if ((currentLocation.includes('home.html') || currentLocation.endsWith('/')) && 
+                        (linkPath.includes('home.html') || linkPath === '/')) {
+                        link.classList.add('active');
+                    }
+                } catch (e) {
+                    console.log("Error processing link:", e);
+                }
+            });
+            
+            // Add smooth scroll for navbar anchor links
+            navLinks.forEach(link => {
+                if (link.hash && link.hash.length > 1) {  // Make sure it's a non-empty hash
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        
+                        if (targetElement) {
+                            // Remove active class from all links
+                            navLinks.forEach(l => l.classList.remove('active'));
+                            
+                            // Add active class to clicked link
+                            this.classList.add('active');
+                            
+                            // Smooth scroll to the element
+                            window.scrollTo({
+                                top: targetElement.offsetTop - navbar.offsetHeight - 20, // Add some extra padding
+                                behavior: 'smooth'
+                            });
+                            
+                            // Update URL without page reload
+                            history.pushState(null, null, targetId);
+                        }
+                    });
+                }
+            });
+            
+            // Add scroll effect for navbar with enhanced throttling
+            let lastScrollTop = 0;
+            let ticking = false;
+            
+            window.addEventListener("scroll", function () {
+                const scrollTop = window.scrollY;
+                
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        // Basic scrolling class
+                        if (scrollTop > 50) {
+                            navbar.classList.add("scrolled");
+                        } else {
+                            navbar.classList.remove("scrolled");
+                        }
+                        
+                        // Only add scrolling-down class if not currently hovering the navbar
+                        if (scrollTop > lastScrollTop && scrollTop > 200) {
+                            if (!navbar.matches(':hover') && !navbar.matches(':focus-within')) {
+                                navbar.classList.add("scrolling-down");
+                            }
+                        } else {
+                            navbar.classList.remove("scrolling-down");
+                        }
+                        
+                        lastScrollTop = scrollTop;
+                        ticking = false;
+                    });
+                    
+                    ticking = true;
+                }
+            });
+            
+            // Add hover/focus event listeners to ensure navbar appears when interacted with
+            navbar.addEventListener('mouseenter', function() {
+                navbar.classList.remove("scrolling-down");
+            });
+            
+            navbar.addEventListener('focusin', function() {
+                navbar.classList.remove("scrolling-down");
+            });
+
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -390,16 +480,6 @@
 
             // Rotate testimonials every 5 seconds
             setInterval(nextTestimonial, 5000);
-        });
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
         });
     </script>
 </body>

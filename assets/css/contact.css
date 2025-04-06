@@ -504,3 +504,215 @@
 .form-success {
     animation: successPulse 0.5s ease;
 }
+
+/* Add navbar-specific styles for consistent appearance */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(37, 32, 32, 0.95);
+    padding: 15px 40px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    font-family: 'Font3', sans-serif;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    will-change: transform, background-color, box-shadow, padding;
+}
+
+.navbar.scrolled {
+    background-color: rgba(37, 32, 32, 0.98);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+    padding: 12px 40px;
+    transform: translateY(0);
+}
+
+.navbar.scrolling-down {
+    transform: translateY(-100%);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar:hover, 
+.navbar:focus-within {
+    transform: translateY(0) !important;
+}
+
+/* Clear both rules to avoid conflict */
+.navbar.scrolling-down:hover,
+.navbar.scrolling-down:focus-within {
+    transform: translateY(0) !important;
+}
+
+.navbar .logo {
+    color: white;
+    font-size: 34px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.navbar .logo:hover {
+    transform: scale(1.08);
+    color: #f8f3e9;
+    text-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 28px;
+    margin-right: 15px;
+}
+
+.navbar ul li {
+    position: relative;
+}
+
+/* Enhanced nav links with underline animation */
+.navbar ul li a {
+    color: antiquewhite;
+    text-decoration: none;
+    font-size: 20px;
+    padding: 12px 5px;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-block;
+    letter-spacing: 0.5px;
+    will-change: transform, color, text-shadow;
+}
+
+.navbar ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 6px;
+    left: 50%;
+    background: white;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: translateX(-50%);
+    opacity: 0;
+    will-change: width, opacity;
+}
+
+.navbar ul li a:hover {
+    transform: translateY(-2px);
+    color: white;
+    text-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
+}
+
+.navbar ul li a:hover::after {
+    width: 70%;
+    opacity: 1;
+}
+
+/* Special styling for active link */
+.navbar ul li a.active {
+    color: white;
+    font-weight: bold;
+}
+
+.navbar ul li a.active::after {
+    width: 70%;
+    opacity: 1;
+    background: white;
+    height: 2px;
+}
+
+/* Fix animations for auth links specifically */
+#auth-links a {
+    padding: 12px 5px;
+    margin: 0 5px;
+}
+
+#auth-links a::after {
+    bottom: 6px;
+}
+
+#auth-links a:hover {
+    transform: translateY(-2px);
+}
+
+#auth-links a:hover::after {
+    width: 70%;
+    opacity: 1;
+}
+
+/* Mobile menu toggle with enhanced animation */
+.menu-toggle {
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+    display: none;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.menu-toggle:hover {
+    transform: rotate(90deg) scale(1.1);
+    color: #f8f3e9;
+    text-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive Design with improved mobile menu */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 25px;
+    }
+    
+    .navbar ul {
+        display: none;
+        flex-direction: column;
+        background: rgba(37, 32, 32, 0.98);
+        width: 100%;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        padding: 25px 0;
+        text-align: center;
+        gap: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+    }
+
+    .navbar ul.active {
+        display: flex;
+        animation: slideDown 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+    
+    .navbar ul li a {
+        font-size: 18px;
+        padding: 10px 20px;
+        display: block;
+    }
+    
+    .navbar ul li a::after {
+        bottom: 5px;
+    }
+}
+
+/* Mobile Menu Animation */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

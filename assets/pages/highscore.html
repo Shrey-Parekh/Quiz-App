@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Highscores - Trivio</title>
+    <link rel="stylesheet" href="/assets/css/highscore.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="/assets/javascript/auth.js"></script>
+    <script src="/assets/javascript/script.js"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">TRIVIO</div>
+
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="aboutus.html">About</a></li>
+            <li><a href="highscore.html" class="active">Leaderboard</a></li>
+            <li><a href="themes.html">Themes</a></li>
+            <li><a href="sub.html">Subscribe</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="reivew.html">Feedback</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <section class="highscore-section">
+        <div class="floating-particles" id="particles"></div>
+        <div class="section-header">
+            <span class="section-tag">Leaderboard</span><br><br>
+            <h1>Top Performers</h1>
+            <div class="section-decoration">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <div class="highscore-container">
+            <div class="theme-filter">
+                <select id="themeSelect" onchange="filterScores()">
+                    <option value="all">All Themes</option>
+                    <option value="gk_questions">General Knowledge</option>
+                    <option value="tech_questions">Technology</option>
+                    <option value="sport_questions">Sports</option>
+                    <option value="wildlife_questions">Wildlife</option>
+                    <option value="history_questions">History</option>
+                    <option value="geography_questions">Geography</option>
+                    <option value="science_questions">Science</option>
+                    <option value="maths_questions">Maths</option>
+                    <option value="movies_questions">Movies & TV</option>
+                    <option value="music_questions">Music</option>
+                    <option value="mythology_questions">Mythology</option>
+                    <option value="food_questions">Food & Drinks</option>
+                    <option value="space_questions">Space</option>
+                    <option value="literature_questions">Literature</option>
+                    <option value="geopolitics_questions">Psychology & Personality</option>
+                    <option value="videogames_questions">Video Games</option>
+                </select>
+            </div>
+
+            <div class="table-container">
+                <table class="highscore-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Player</th>
+                            <th>Score</th>
+                            <th>Theme</th>
+                        </tr>
+                    </thead>
+                    <tbody id="scoreTableBody">
+                        <!-- Fallback static content that will be replaced by JavaScript -->
+                        <tr class="top-score-row">
+                            <td><span class="fancy-badge gold-badge"><span class="badge-text">1</span></span></td>
+                            <td>AliceWonder</td>
+                            <td><i class="fas fa-crown" style="color: gold; margin-right: 5px;"></i><span class="high-score">100.0%</span></td>
+                            <td><span class="theme-pill">Technology</span></td>
+                        </tr>
+                        <tr class="top-score-row">
+                            <td><span class="fancy-badge silver-badge"><span class="badge-text">2</span></span></td>
+                            <td>JohnDoe</td>
+                            <td><i class="fas fa-medal" style="color: silver; margin-right: 5px;"></i><span class="high-score">90.0%</span></td>
+                            <td><span class="theme-pill">General Knowledge</span></td>
+                        </tr>
+                        <tr class="top-score-row">
+                            <td><span class="fancy-badge bronze-badge"><span class="badge-text">3</span></span></td>
+                            <td>BobSmith</td>
+                            <td><i class="fas fa-medal" style="color: #CD7F32; margin-right: 5px;"></i><span class="good-score">80.0%</span></td>
+                            <td><span class="theme-pill">Sports</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank-badge rank-other">4</span></td>
+                            <td>EveJackson</td>
+                            <td><span class="good-score">70.0%</span></td>
+                            <td><span class="theme-pill">Wildlife</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank-badge rank-other">5</span></td>
+                            <td>SamHarris</td>
+                            <td><span class="average-score">65.0%</span></td>
+                            <td><span class="theme-pill">History</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer" class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">TRIVIO</div>
+            <div class="footer-links">
+                <a href="home.html">Home</a>
+                <a href="highscore.html">High Score</a>
+                <a href="themes.html">Quiz</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="coding.html">Learn More</a>
+            </div>
+            <div class="social-icons">
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-linkedin"></i>
+            </div>
+            <p>&copy; 2025 TRIVIO. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // API URL - Change this to your actual server URL
+        const API_URL = 'http://localhost:3000';
+        
+        // Selected theme
+        let selectedTheme = 'all';
+        
+        // Function to filter scores based on selected theme
+        function filterScores() {
+            selectedTheme = document.getElementById('themeSelect').value;
+            fetchLeaderboardData();
+        }
+        
+        // Function to fetch leaderboard data from API
+        async function fetchLeaderboardData() {
+            try {
+                // Show loading state
+                const tableBody = document.getElementById('scoreTableBody');
+                tableBody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Loading...</td></tr>';
+                
+                // Prepare API URL with query parameters
+                const url = `${API_URL}/leaderboard?theme=${selectedTheme}`;
+                
+                console.log('Fetching data from:', url);
+                
+                // Fetch data from API with timeout
+                const fetchPromise = fetch(url);
+                const timeoutPromise = new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error('Request timed out')), 5000)
+                );
+                
+                const response = await Promise.race([fetchPromise, timeoutPromise]);
+                
+                // Check if response is successful
+                if (!response.ok) {
+                    throw new Error('Failed to fetch leaderboard data');
+                }
+                
+                // Parse JSON response
+                const data = await response.json();
+                console.log('Received data:', data);
+                
+                // Render the table with data
+                if (data.data && Array.isArray(data.data) && data.data.length > 0) {
+                    renderTable(data.data);
+                } else {
+                    console.log('No data received from server, using fallback data');
+                    renderFallbackData();
+                }
+                
+            } catch (error) {
+                console.error('Error fetching leaderboard data:', error);
+                
+                // Use fallback data if fetch fails
+                console.log('Fetch failed, using fallback data');
+                renderFallbackData();
+            }
+        }
+        
+        // Function to render fallback data from the existing table
+        function renderFallbackData() {
+            // Use the existing table rows as fallback data
+            const staticRows = document.querySelectorAll('#scoreTableBody tr');
+            if (staticRows.length > 0) {
+                // Just make sure they have the fade-in class
+                staticRows.forEach((row, index) => {
+                    setTimeout(() => {
+                        row.classList.add('fade-in');
+                    }, index * 120);
+                });
+            } else {
+                // If somehow there are no rows, create a message
+                const tableBody = document.getElementById('scoreTableBody');
+                tableBody.innerHTML = '<tr><td colspan="4" style="text-align: center;">No scores available at the moment.</td></tr>';
+            }
+        }
+        
+        // Function to render the table with data
+        function renderTable(scores) {
+            const tableBody = document.getElementById('scoreTableBody');
+            tableBody.innerHTML = '';
+            
+            if (!scores || scores.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="4" style="text-align: center;">No scores found.</td></tr>';
+                console.log('No scores to display');
+                return;
+            }
+            
+            console.log(`Displaying ${scores.length} scores`);
+            
+            // Get current user from auth module (if available)
+            const currentUser = auth && auth.getCurrentUser ? auth.getCurrentUser() : null;
+            
+            // Generate table rows
+            scores.forEach((score, index) => {
+                const rank = index + 1;
+                const row = document.createElement('tr');
+                
+                // Add top-score-row class for the top 3
+                if (rank <= 3) {
+                    row.classList.add('top-score-row');
+                }
+                
+                // Highlight current user's row if logged in
+                if (currentUser && score.username === currentUser.username) {
+                    row.classList.add('current-user');
+                }
+                
+                // Make sure percentage_score exists
+                const scoreValue = score.percentage_score || (score.raw_score ? score.raw_score * 10 : 0);
+                
+                // Format percentage score with a medal icon for top performers
+                const scoreDisplay = formatScoreDisplay(scoreValue, rank);
+                
+                // Add fancy badges for top 3
+                let rankDisplay = '';
+                if (rank === 1) {
+                    rankDisplay = `<span class="fancy-badge gold-badge"><span class="badge-text">${rank}</span></span>`;
+                } else if (rank === 2) {
+                    rankDisplay = `<span class="fancy-badge silver-badge"><span class="badge-text">${rank}</span></span>`;
+                } else if (rank === 3) {
+                    rankDisplay = `<span class="fancy-badge bronze-badge"><span class="badge-text">${rank}</span></span>`;
+                } else {
+                    rankDisplay = `<span class="rank-badge rank-other">${rank}</span>`;
+                }
+                
+                row.innerHTML = `
+                    <td>${rankDisplay}</td>
+                    <td>${score.username}</td>
+                    <td>${scoreDisplay}</td>
+                    <td><span class="theme-pill">${score.theme_name}</span></td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+            
+            // Add staggered fade-in animation to rows
+            const rows = tableBody.querySelectorAll('tr');
+            rows.forEach((row, index) => {
+                setTimeout(() => {
+                    row.classList.add('fade-in');
+                }, index * 120); // Slightly longer delay for more noticeable effect
+            });
+        }
+        
+        // Format score display with additional styling for top performers
+        function formatScoreDisplay(percentageScore, rank) {
+            // Format to one decimal place
+            const formattedScore = parseFloat(percentageScore).toFixed(1) + '%';
+            
+            // Add medal icons for top 3 ranks
+            let medalIcon = '';
+            if (rank === 1) {
+                medalIcon = '<i class="fas fa-crown" style="color: gold; margin-right: 5px;"></i>';
+            } else if (rank === 2) {
+                medalIcon = '<i class="fas fa-medal" style="color: silver; margin-right: 5px;"></i>';
+            } else if (rank === 3) {
+                medalIcon = '<i class="fas fa-medal" style="color: #CD7F32; margin-right: 5px;"></i>';
+            }
+            
+            // Add different classes based on score
+            let scoreClass = '';
+            if (percentageScore >= 90) {
+                scoreClass = 'high-score';
+            } else if (percentageScore >= 70) {
+                scoreClass = 'good-score';
+            } else if (percentageScore >= 50) {
+                scoreClass = 'average-score';
+            }
+            
+            return `${medalIcon}<span class="${scoreClass}">${formattedScore}</span>`;
+        }
+        
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random position
+                const posX = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const size = Math.random() * 5 + 3;
+                
+                particle.style.left = `${posX}%`;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // Initialize page when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded, fetching leaderboard data...');
+            
+            // Create particles
+            createParticles();
+            
+            // Add class to show initial static rows with animation
+            const staticRows = document.querySelectorAll('#scoreTableBody tr');
+            staticRows.forEach((row, index) => {
+                setTimeout(() => {
+                    row.classList.add('fade-in');
+                }, index * 120);
+            });
+            
+            // Fetch data from API after short delay to allow static content to be seen
+            setTimeout(() => {
+                fetchLeaderboardData();
+            }, 800);
+            
+            // Add scroll event listener for navbar styling
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

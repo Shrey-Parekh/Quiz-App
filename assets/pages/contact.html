@@ -13,12 +13,23 @@
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="logo">TRIVIO</div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
         <ul>
             <li><a href="home.html">Home</a></li>
             <li><a href="aboutus.html">About</a></li>
             <li><a href="highscore.html">High Score</a></li>
             <li><a href="themes.html">Themes</a></li>
-            <li><a href="login.html">Login</a></li>
+            <li><a href="sub.html">Subscribe</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="reivew.html">Feedback</a></li>
+            <li id="auth-links">
+                <a href="login.html" id="login-link">Login</a>
+                <a href="register.html" id="register-link">Register</a>
+                <a href="#" id="logout-link" style="display: none;">Logout</a>
+            </li>
+            <li><a href="contact.html">Contact Us</a></li>
         </ul>
     </nav>
 
@@ -154,97 +165,161 @@
     </footer>
 
     <script>
-        // Form Submission Handler
-        document.getElementById('contactForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
+        // Toggle menu function
+        function toggleMenu() {
+            document.querySelector(".navbar ul").classList.toggle("active");
+        }
+
+        // Enhanced navbar functionality
+        document.addEventListener("DOMContentLoaded", function() {
+            const navbar = document.querySelector(".navbar");
+            const navLinks = document.querySelectorAll(".navbar ul li a");
             
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                subject: document.getElementById('subject').value,
-                message: document.getElementById('message').value
-            };
-
-            try {
-                const submitBtn = this.querySelector('.submit-btn');
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-                submitBtn.disabled = true;
-
-                const response = await fetch('http://localhost:3000/submit-contact', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                });
-
-                const data = await response.json();
+            // Set active link based on current page
+            const currentLocation = window.location.pathname;
+            navLinks.forEach(link => {
+                try {
+                    const linkPath = new URL(link.href).pathname;
+                    if (currentLocation === linkPath || 
+                        (currentLocation.includes(linkPath) && linkPath !== '/assets/pages/home.html' && 
+                        linkPath !== '/' && linkPath.length > 1)) {
+                        link.classList.add('active');
+                    }
+                    
+                    // Special case for home page
+                    if ((currentLocation.includes('home.html') || currentLocation.endsWith('/')) && 
+                        (linkPath.includes('home.html') || linkPath === '/')) {
+                        link.classList.add('active');
+                    }
+                } catch (e) {
+                    console.log("Error processing link:", e);
+                }
+            });
+            
+            // Add scroll effect for navbar with enhanced throttling
+            let lastScrollTop = 0;
+            let ticking = false;
+            
+            window.addEventListener("scroll", function () {
+                const scrollTop = window.scrollY;
                 
-                if (response.ok) {
-                    submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent Successfully!';
-                    submitBtn.classList.add('form-success');
-                    this.reset();
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        // Basic scrolling class
+                        if (scrollTop > 50) {
+                            navbar.classList.add("scrolled");
+                        } else {
+                            navbar.classList.remove("scrolled");
+                        }
+                        
+                        // Only add scrolling-down class if not currently hovering the navbar
+                        if (scrollTop > lastScrollTop && scrollTop > 200) {
+                            if (!navbar.matches(':hover') && !navbar.matches(':focus-within')) {
+                                navbar.classList.add("scrolling-down");
+                            }
+                        } else {
+                            navbar.classList.remove("scrolling-down");
+                        }
+                        
+                        lastScrollTop = scrollTop;
+                        ticking = false;
+                    });
+                    
+                    ticking = true;
+                }
+            });
+            
+            // Add hover/focus event listeners to ensure navbar appears when interacted with
+            navbar.addEventListener('mouseenter', function() {
+                navbar.classList.remove("scrolling-down");
+            });
+            
+            navbar.addEventListener('focusin', function() {
+                navbar.classList.remove("scrolling-down");
+            });
+
+            // Form Submission Handler
+            document.getElementById('contactForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    subject: document.getElementById('subject').value,
+                    message: document.getElementById('message').value
+                };
+
+                try {
+                    const submitBtn = this.querySelector('.submit-btn');
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                    submitBtn.disabled = true;
+
+                    const response = await fetch('http://localhost:3000/submit-contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent Successfully!';
+                        submitBtn.classList.add('form-success');
+                        this.reset();
+                        
+                        setTimeout(() => {
+                            submitBtn.innerHTML = '<span>Send Message</span><i class="fas fa-paper-plane"></i>';
+                            submitBtn.classList.remove('form-success');
+                            submitBtn.disabled = false;
+                        }, 2000);
+                    } else {
+                        throw new Error(data.error || 'Failed to send message');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    const submitBtn = this.querySelector('.submit-btn');
+                    submitBtn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Error!';
+                    submitBtn.disabled = false;
                     
                     setTimeout(() => {
                         submitBtn.innerHTML = '<span>Send Message</span><i class="fas fa-paper-plane"></i>';
-                        submitBtn.classList.remove('form-success');
-                        submitBtn.disabled = false;
                     }, 2000);
-                } else {
-                    throw new Error(data.error || 'Failed to send message');
                 }
-            } catch (error) {
-                console.error('Error:', error);
-                const submitBtn = this.querySelector('.submit-btn');
-                submitBtn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Error!';
-                submitBtn.disabled = false;
-                
-                setTimeout(() => {
-                    submitBtn.innerHTML = '<span>Send Message</span><i class="fas fa-paper-plane"></i>';
-                }, 2000);
-            }
-        });
+            });
 
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+            // FAQ Toggle Effect
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const answer = this.querySelector('p');
+                    const isOpen = this.classList.contains('active');
+                    
+                    // Close all other FAQs
+                    document.querySelectorAll('.faq-item').forEach(faq => {
+                        faq.classList.remove('active');
+                        faq.querySelector('p').style.maxHeight = null;
+                    });
+                    
+                    // Toggle current FAQ
+                    if (!isOpen) {
+                        this.classList.add('active');
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                    }
+                });
+            });
 
-        // FAQ Toggle Effect
-        document.querySelectorAll('.faq-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const answer = this.querySelector('p');
-                const isOpen = this.classList.contains('active');
-                
-                // Close all other FAQs
-                document.querySelectorAll('.faq-item').forEach(faq => {
-                    faq.classList.remove('active');
-                    faq.querySelector('p').style.maxHeight = null;
+            // Input focus effect
+            document.querySelectorAll('.form-group input, .form-group select, .form-group textarea').forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
                 });
                 
-                // Toggle current FAQ
-                if (!isOpen) {
-                    this.classList.add('active');
-                    answer.style.maxHeight = answer.scrollHeight + 'px';
-                }
-            });
-        });
-
-        // Input focus effect
-        document.querySelectorAll('.form-group input, .form-group select, .form-group textarea').forEach(input => {
-            input.addEventListener('focus', function() {
-                this.parentElement.classList.add('focused');
-            });
-            
-            input.addEventListener('blur', function() {
-                if (!this.value) {
-                    this.parentElement.classList.remove('focused');
-                }
+                input.addEventListener('blur', function() {
+                    if (!this.value) {
+                        this.parentElement.classList.remove('focused');
+                    }
+                });
             });
         });
     </script>

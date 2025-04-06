@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Trivio</title>
+    <link rel="stylesheet" href="/assets/css/themes.css">
+    <link rel="stylesheet" href="/assets/css/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="/assets/javascript/auth.js"></script>
+    <script src="/assets/javascript/script.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">TRIVIO</div>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="aboutus.html">About</a></li>
+            <li><a href="highscore.html">High Score</a></li>
+            <li><a href="themes.html">Themes</a></li>
+            <li><a href="highscore.html">Leaderboard</a></li>
+            <li><a href="sub.html">Subscribe</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="reivew.html">Feedback</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-photo-container">
+                <img id="profile-photo" src="/assets/images/default-profile.jpg" alt="Profile Photo">
+                <div class="photo-upload-overlay">
+                    <span>Click to change photo</span>
+                </div>
+                <label for="photo-upload" class="photo-upload-btn">
+                    <i class="fas fa-camera"></i>
+                </label>
+                <input type="file" id="photo-upload" accept="image/*" hidden>
+            </div>
+            <h1>Your Profile</h1>
+        </div>
+
+        <form id="profile-form" class="profile-form">
+            <div class="form-group">
+                <label for="bio">Bio</label>
+                <textarea id="bio" name="bio" rows="4" placeholder="Tell us about yourself..."></textarea>
+                <div class="error-message" id="bio-error">Please enter a valid bio</div>
+            </div>
+
+            <div class="form-group">
+                <label for="interests">Interests</label>
+                <input type="text" id="interests" name="interests" placeholder="e.g., Technology, Sports, Music">
+                <div class="error-message" id="interests-error">Please enter your interests</div>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" placeholder="Your city or country">
+                <div class="error-message" id="location-error">Please enter your location</div>
+            </div>
+
+            <div class="form-group">
+                <label for="favorite-category">Favorite Quiz Category</label>
+                <select id="favorite-category" name="favorite-category">
+                    <option value="">Select a category</option>
+                    <option value="general">General Knowledge</option>
+                    <option value="tech">Technology</option>
+                    <option value="sports">Sports</option>
+                    <option value="science">Science</option>
+                    <option value="history">History</option>
+                    <option value="geography">Geography</option>
+                    <option value="movies">Movies & TV</option>
+                    <option value="music">Music</option>
+                    <option value="food">Food & Drinks</option>
+                    <option value="literature">Literature</option>
+                </select>
+                <div class="error-message" id="category-error">Please select a category</div>
+            </div>
+
+            <div class="form-group">
+                <label for="achievement-goals">Achievement Goals</label>
+                <textarea id="achievement-goals" name="achievement-goals" rows="3" placeholder="What do you want to achieve on Trivio?"></textarea>
+                <div class="error-message" id="goals-error">Please enter your goals</div>
+            </div>
+
+            <div class="form-group">
+                <label for="notification-preferences">Notification Preferences</label>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" name="notifications" value="new-quizzes">
+                        <span>New Quizzes</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" name="notifications" value="achievements">
+                        <span>Achievements</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" name="notifications" value="leaderboard">
+                        <span>Leaderboard Updates</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" name="notifications" value="friends">
+                        <span>Friend Activities</span>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="save-profile-btn">
+                Save Profile
+            </button>
+        </form>
+    </div>
+
+    <!-- Image Preview Modal -->
+    <div class="image-preview-modal" id="image-preview-modal">
+        <div class="preview-container">
+            <img id="preview-image" src="" alt="Preview">
+        </div>
+        <div class="preview-controls">
+            <button class="preview-confirm" id="confirm-image">Use This Photo</button>
+            <button class="preview-cancel" id="cancel-image">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Image Drop Zone -->
+    <div class="drop-zone" id="drop-zone">
+        <div class="drop-zone-inner" id="drop-zone-inner">
+            <i class="fas fa-cloud-upload-alt" style="font-size: 3em; margin-bottom: 20px; color: #8B7355;"></i>
+            <h3>Drop Your Image Here</h3>
+            <p>or click to select from your device</p>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success-message" id="success-message">
+        <i class="fas fa-check-circle"></i>
+        <span>Profile updated successfully!</span>
+    </div>
+
+    <footer id="footer" class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">TRIVIO</div>
+            <div class="footer-links">
+                <a href="home.html">Home</a>
+                <a href="highscore.html">High Score</a>
+                <a href="themes.html">Quiz</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="coding.html">Learn More</a>
+            </div>
+            <div class="social-icons">
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-linkedin"></i>
+            </div>
+            <p>&copy; 2025 TRIVIO. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // API URLs
+        const API_BASE_URL = 'http://localhost:3000';
+        const PROFILE_API = `${API_BASE_URL}/user-profile`;
+        const PHOTO_UPLOAD_API = `${API_BASE_URL}/upload-profile-photo`;
+        const NOTIFICATIONS_API = `${API_BASE_URL}/user-notifications`;
+        
+        // Check authentication on page load
+        document.addEventListener("DOMContentLoaded", function() {
+            if (!auth.checkAuth()) {
+                return;
+            }
+
+            // Get DOM elements
+            const photoUpload = document.getElementById('photo-upload');
+            const profilePhoto = document.getElementById('profile-photo');
+            const photoContainer = document.querySelector('.profile-photo-container');
+            const photoOverlay = document.querySelector('.photo-upload-overlay');
+            const previewModal = document.getElementById('image-preview-modal');
+            const previewImage = document.getElementById('preview-image');
+            const confirmImage = document.getElementById('confirm-image');
+            const cancelImage = document.getElementById('cancel-image');
+            const dropZone = document.getElementById('drop-zone');
+            const dropZoneInner = document.getElementById('drop-zone-inner');
+            const successMessage = document.getElementById('success-message');
+            const profileForm = document.getElementById('profile-form');
+            
+            // Variables to store temp data
+            let currentFile = null;
+            let currentUser = null;
+
+            // Get current user
+            function getCurrentUser() {
+                try {
+                    // First try to get from localStorage
+                    const userData = localStorage.getItem('user');
+                    if (userData) {
+                        const user = JSON.parse(userData);
+                        if (user && user.id) {
+                            currentUser = user;
+                            console.log("User loaded from localStorage:", currentUser);
+                            return user;
+                        }
+                    }
+                    
+                    // For testing: create a mock user if none found
+                    // REMOVE THIS IN PRODUCTION
+                    if (!currentUser) {
+                        const mockUser = { id: 1, username: 'testuser', email: 'test@example.com' };
+                        localStorage.setItem('user', JSON.stringify(mockUser));
+                        currentUser = mockUser;
+                        console.log("Created mock user for testing:", currentUser);
+                        return mockUser;
+                    }
+                } catch (error) {
+                    console.error('Error getting user data:', error);
+                    return null;
+                }
+            }
+
+            // Initialize by getting current user and loading profile
+            const user = getCurrentUser();
+            if (user && user.id) {
+                loadUserProfile(user.id);
+            } else {
+                console.warn("No user ID found, using local storage only");
+                loadProfileFromLocalStorage();
+            }
+
+            // Load user profile data from server
+            async function loadUserProfile(userId) {
+                try {
+                    profileForm.classList.add('loading');
+                    const response = await fetch(`${PROFILE_API}/${userId}`);
+                    
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch profile data: ${response.status}`);
+                    }
+                    
+                    const profileData = await response.json();
+                    console.log("Loaded profile data:", profileData);
+                    
+                    // Populate form with profile data
+                    document.getElementById('bio').value = profileData.bio || '';
+                    document.getElementById('interests').value = profileData.interests || '';
+                    document.getElementById('location').value = profileData.location || '';
+                    document.getElementById('favorite-category').value = profileData.favoriteCategory || '';
+                    document.getElementById('achievement-goals').value = profileData.achievementGoals || '';
+                    
+                    // Set profile photo if available
+                    if (profileData.profilePhotoUrl) {
+                        profilePhoto.src = profileData.profilePhotoUrl;
+                    }
+                    
+                    // Set notification checkboxes
+                    if (profileData.notifications) {
+                        Object.keys(profileData.notifications).forEach(type => {
+                            const checkbox = document.querySelector(`input[name="notifications"][value="${type}"]`);
+                            if (checkbox) {
+                                checkbox.checked = profileData.notifications[type];
+                            }
+                        });
+                    }
+                    
+                } catch (error) {
+                    console.error('Error loading profile:', error);
+                    // If we can't load from server, try to use localStorage as fallback
+                    loadProfileFromLocalStorage();
+                } finally {
+                    profileForm.classList.remove('loading');
+                }
+            }
+            
+            // Fallback: Load profile from localStorage if server fails
+            function loadProfileFromLocalStorage() {
+                const savedPhoto = localStorage.getItem('profilePhoto');
+                if (savedPhoto) {
+                    profilePhoto.src = savedPhoto;
+                }
+
+                const savedData = localStorage.getItem('profileData');
+                if (savedData) {
+                    const data = JSON.parse(savedData);
+                    document.getElementById('bio').value = data.bio || '';
+                    document.getElementById('interests').value = data.interests || '';
+                    document.getElementById('location').value = data.location || '';
+                    document.getElementById('favorite-category').value = data.favoriteCategory || '';
+                    document.getElementById('achievement-goals').value = data.achievementGoals || '';
+                    
+                    if (data.notifications && typeof data.notifications === 'object') {
+                        Object.keys(data.notifications).forEach(type => {
+                            const checkbox = document.querySelector(`input[name="notifications"][value="${type}"]`);
+                            if (checkbox) checkbox.checked = data.notifications[type];
+                        });
+                    } else if (data.notifications && Array.isArray(data.notifications)) {
+                        data.notifications.forEach(value => {
+                            const checkbox = document.querySelector(`input[name="notifications"][value="${value}"]`);
+                            if (checkbox) checkbox.checked = true;
+                        });
+                    }
+                }
+            }
+
+            // Handle photo upload via click
+            photoUpload.addEventListener('change', handleFileSelect);
+            photoContainer.addEventListener('click', function() {
+                photoUpload.click();
+            });
+
+            // Handle preview modal controls
+            confirmImage.addEventListener('click', async function() {
+                if (currentFile) {
+                    const reader = new FileReader();
+                    reader.onload = async function(e) {
+                        const photoDataUrl = e.target.result;
+                        
+                        // Save to server if user is logged in
+                        if (currentUser && currentUser.id) {
+                            try {
+                                profileForm.classList.add('loading');
+                                console.log(`Uploading photo for user ID: ${currentUser.id}`);
+                                
+                                const response = await fetch(`${PHOTO_UPLOAD_API}/${currentUser.id}`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({ photoDataUrl }),
+                                });
+                                
+                                const result = await response.json();
+                                console.log("Upload response:", result);
+                                
+                                if (!response.ok) {
+                                    throw new Error(result.error || 'Failed to upload profile photo');
+                                }
+                                
+                                // Update UI with new photo
+                                profilePhoto.src = photoDataUrl;
+                                
+                                // Show success message
+                                showSuccessMessage('Profile photo updated!');
+                            } catch (error) {
+                                console.error('Error uploading photo:', error);
+                                // Fallback to localStorage
+                                localStorage.setItem('profilePhoto', photoDataUrl);
+                                profilePhoto.src = photoDataUrl;
+                                showSuccessMessage('Error with server. Photo saved locally.');
+                            } finally {
+                                profileForm.classList.remove('loading');
+                                previewModal.classList.remove('active');
+                            }
+                        } else {
+                            // Fallback to localStorage
+                            localStorage.setItem('profilePhoto', photoDataUrl);
+                            profilePhoto.src = photoDataUrl;
+                            showSuccessMessage('Profile photo saved locally!');
+                            previewModal.classList.remove('active');
+                        }
+                    }
+                    reader.readAsDataURL(currentFile);
+                }
+            });
+
+            cancelImage.addEventListener('click', function() {
+                previewModal.classList.remove('active');
+                currentFile = null;
+            });
+
+            // Handle file select event
+            function handleFileSelect(e) {
+                const file = e.target ? e.target.files[0] : e;
+                
+                if (file && file.type.match('image.*')) {
+                    currentFile = file;
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImage.src = e.target.result;
+                        previewModal.classList.add('active');
+                    }
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            // Drag and drop functionality
+            photoContainer.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                dropZone.classList.add('active');
+            });
+
+            dropZone.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                dropZoneInner.classList.add('highlight');
+            });
+
+            dropZone.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                dropZoneInner.classList.remove('highlight');
+            });
+
+            dropZone.addEventListener('drop', function(e) {
+                e.preventDefault();
+                dropZone.classList.remove('active');
+                dropZoneInner.classList.remove('highlight');
+                
+                const file = e.dataTransfer.files[0];
+                if (file) {
+                    handleFileSelect(file);
+                }
+            });
+
+            dropZone.addEventListener('click', function() {
+                photoUpload.click();
+                dropZone.classList.remove('active');
+            });
+
+            // Global drop handlers
+            document.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                if (e.target !== photoContainer && !dropZone.contains(e.target)) {
+                    dropZone.classList.add('active');
+                }
+            });
+
+            document.addEventListener('drop', function(e) {
+                e.preventDefault();
+                dropZone.classList.remove('active');
+            });
+
+            document.addEventListener('dragleave', function(e) {
+                if (e.clientX <= 0 || e.clientY <= 0 || 
+                    e.clientX >= window.innerWidth || e.clientY >= window.innerHeight) {
+                    dropZone.classList.remove('active');
+                }
+            });
+
+            // Form validation
+            function validateForm() {
+                let isValid = true;
+                
+                // Basic validation can be extended as needed
+                const bio = document.getElementById('bio').value;
+                if (bio.trim() === '') {
+                    showError('bio-error');
+                    isValid = false;
+                } else {
+                    hideError('bio-error');
+                }
+                
+                return isValid;
+            }
+            
+            function showError(id) {
+                const error = document.getElementById(id);
+                error.classList.add('show');
+            }
+            
+            function hideError(id) {
+                const error = document.getElementById(id);
+                error.classList.remove('show');
+            }
+            
+            function showSuccessMessage(message) {
+                const messageEl = document.getElementById('success-message');
+                const messageText = messageEl.querySelector('span');
+                messageText.textContent = message || 'Profile updated successfully!';
+                
+                messageEl.classList.add('show');
+                
+                setTimeout(() => {
+                    messageEl.classList.remove('show');
+                }, 3000);
+            }
+
+            // Handle form submission
+            profileForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Basic validation
+                if (!validateForm()) {
+                    return;
+                }
+                
+                // Add loading state
+                profileForm.classList.add('loading');
+                
+                // Collect form data
+                const formData = {
+                    bio: document.getElementById('bio').value,
+                    interests: document.getElementById('interests').value,
+                    location: document.getElementById('location').value,
+                    favoriteCategory: document.getElementById('favorite-category').value,
+                    achievementGoals: document.getElementById('achievement-goals').value,
+                    notifications: {}
+                };
+                
+                // Get notification preferences
+                const notificationCheckboxes = document.querySelectorAll('input[name="notifications"]');
+                notificationCheckboxes.forEach(checkbox => {
+                    formData.notifications[checkbox.value] = checkbox.checked;
+                });
+                
+                // Ensure we have a current user
+                if (!currentUser) {
+                    getCurrentUser();
+                }
+                
+                if (currentUser && currentUser.id) {
+                    try {
+                        console.log(`Updating profile for user ID: ${currentUser.id}`);
+                        // Save to server
+                        const response = await fetch(`${PROFILE_API}/${currentUser.id}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(formData),
+                        });
+                        
+                        const result = await response.json();
+                        console.log("Profile update response:", result);
+                        
+                        if (!response.ok) {
+                            throw new Error(result.error || 'Failed to update profile');
+                        }
+                        
+                        showSuccessMessage('Profile updated successfully!');
+                    } catch (error) {
+                        console.error('Error updating profile:', error);
+                        // Fallback to localStorage
+                        localStorage.setItem('profileData', JSON.stringify(formData));
+                        showSuccessMessage('Server error. Profile saved locally!');
+                    } finally {
+                        profileForm.classList.remove('loading');
+                    }
+                } else {
+                    // Fallback to localStorage if not logged in or no user ID
+                    localStorage.setItem('profileData', JSON.stringify(formData));
+                    
+                    // Remove loading state
+                    profileForm.classList.remove('loading');
+                    
+                    // Show success message
+                    showSuccessMessage('Profile saved locally!');
+                }
+            });
+
+            // Apply fade-in animations to form elements
+            const formGroups = document.querySelectorAll('.form-group');
+            formGroups.forEach((group, index) => {
+                group.style.animationDelay = `${0.1 * (index + 1)}s`;
+            });
+        });
+    </script>
+</body>
+</html>

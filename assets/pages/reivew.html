@@ -13,15 +13,19 @@
         <div class="logo">TRIVIO</div>
         <ul>
             <li><a href="home.html">Home</a></li>
-            <li><a href="coding.html#python">Python</a></li>
-            <li><a href="coding.html#javascript">JavaScript</a></li>
+            <li><a href="aboutus.html">About</a></li>
+            <li><a href="highscore.html">Leaderboard</a></li>
             <li><a href="themes.html">Themes</a></li>
-            <li><a href="login.html">Login</a></li>
-            <li><a href="#footer">Contact</a></li>
+            <li><a href="sub.html">Subscribe</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="reivew.html">Feedback</a></li>
+            <li id="auth-links">
+                <a href="login.html" id="login-link">Login</a>
+                <a href="register.html" id="register-link">Register</a>
+                <a href="#" id="logout-link" style="display: none;">Logout</a>
+            </li>
+            <li><a href="contact.html">Contact Us</a></li>
         </ul>
-        <div class="menu-toggle" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
-        </div>
     </nav>
 
     <!-- Header Section -->
@@ -142,18 +146,75 @@
             document.querySelector(".navbar ul").classList.toggle("active");
         }
 
-        // Add scroll effect to navbar
-        window.addEventListener("scroll", function() {
-            const navbar = document.querySelector(".navbar");
-            if (window.scrollY > 50) {
-                navbar.classList.add("scrolled");
-            } else {
-                navbar.classList.remove("scrolled");
-            }
-        });
-
         // Animation for sections when scrolled into view
         document.addEventListener("DOMContentLoaded", function() {
+            // Enhanced navbar functionality
+            const navbar = document.querySelector(".navbar");
+            const navLinks = document.querySelectorAll(".navbar ul li a");
+            
+            // Set active link based on current page
+            const currentLocation = window.location.pathname;
+            navLinks.forEach(link => {
+                try {
+                    const linkPath = new URL(link.href).pathname;
+                    if (currentLocation === linkPath || 
+                        (currentLocation.includes(linkPath) && linkPath !== '/assets/pages/home.html' && 
+                        linkPath !== '/' && linkPath.length > 1)) {
+                        link.classList.add('active');
+                    }
+                    
+                    // Special case for home page
+                    if ((currentLocation.includes('home.html') || currentLocation.endsWith('/')) && 
+                        (linkPath.includes('home.html') || linkPath === '/')) {
+                        link.classList.add('active');
+                    }
+                } catch (e) {
+                    console.log("Error processing link:", e);
+                }
+            });
+            
+            // Add scroll effect for navbar with enhanced throttling
+            let lastScrollTop = 0;
+            let ticking = false;
+            
+            window.addEventListener("scroll", function () {
+                const scrollTop = window.scrollY;
+                
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        // Basic scrolling class
+                        if (scrollTop > 50) {
+                            navbar.classList.add("scrolled");
+                        } else {
+                            navbar.classList.remove("scrolled");
+                        }
+                        
+                        // Only add scrolling-down class if not currently hovering the navbar
+                        if (scrollTop > lastScrollTop && scrollTop > 200) {
+                            if (!navbar.matches(':hover') && !navbar.matches(':focus-within')) {
+                                navbar.classList.add("scrolling-down");
+                            }
+                        } else {
+                            navbar.classList.remove("scrolling-down");
+                        }
+                        
+                        lastScrollTop = scrollTop;
+                        ticking = false;
+                    });
+                    
+                    ticking = true;
+                }
+            });
+            
+            // Add hover/focus event listeners to ensure navbar appears when interacted with
+            navbar.addEventListener('mouseenter', function() {
+                navbar.classList.remove("scrolling-down");
+            });
+            
+            navbar.addEventListener('focusin', function() {
+                navbar.classList.remove("scrolling-down");
+            });
+            
             const sections = document.querySelectorAll(".form-section");
             
             const observer = new IntersectionObserver((entries) => {
