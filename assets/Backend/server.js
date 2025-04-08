@@ -3,7 +3,6 @@ const mysql = require('mysql2');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const bodyParser = require('body-parser');
-
 const app = express();
 app.use(cors());
 app.use(express.json()); // To parse JSON body
@@ -340,62 +339,6 @@ async function cleanLeaderboardData() {
 
 
 
-// ✅ Get User Stats
-app.get('/user-stats/:email', (req, res) => {
-    const { email } = req.params;
-    
-    if (!email) {
-        return res.status(400).json({ error: "User email is required" });
-    }
-    
-    // Get user's best score, rank, and games played
-    const statsQuery = `
-        SELECT 
-            MAX(percentage_score) as best_score,
-            COUNT(*) as games_played
-        FROM leaderboard
-        WHERE user_email = ?
-    `;
-    
-    // Get user's overall rank based on their best score
-    const rankQuery = `
-        SELECT COUNT(*) as rank_position
-        FROM (
-            SELECT user_email, MAX(percentage_score) as max_score
-            FROM leaderboard
-            GROUP BY user_email
-        ) as user_max_scores
-        WHERE max_score > (
-            SELECT MAX(percentage_score)
-            FROM leaderboard
-            WHERE user_email = ?
-        )
-    `;
-    
-    db.query(statsQuery, [email], (err, statsResults) => {
-        if (err) {
-            console.error("❌ Error fetching user stats:", err);
-            return res.status(500).json({ error: "Database error while fetching user stats." });
-        }
-        
-        db.query(rankQuery, [email], (err, rankResults) => {
-            if (err) {
-                console.error("❌ Error calculating user rank:", err);
-                return res.status(500).json({ error: "Database error while calculating user rank." });
-            }
-            
-            const userStats = {
-                bestScore: statsResults[0].best_score || 0,
-                gamesPlayed: statsResults[0].games_played || 0,
-                rank: (rankResults[0].rank_position + 1) || 'N/A'
-            };
-            
-            res.json(userStats);
-        });
-    });
-});
-
-
 
 // Logout endpoint
 app.post("/logout", (req, res) => {
@@ -417,60 +360,6 @@ app.post("/logout", (req, res) => {
     }
 });
 
-// Update user notification preferences endpoint
-app.put('/user-notifications/:userId', async (req, res) => {
-    try {
-        const { userId } = req.params;
-        const { notifications } = req.body;
-        
-        // Validate inputs
-        if (!userId) {
-            return res.status(400).json({ success: false, error: 'Missing userId' });
-        }
-        
-        if (!notifications || typeof notifications !== 'object' || Object.keys(notifications).length === 0) {
-            return res.status(400).json({ success: false, error: 'Invalid or missing notification preferences' });
-        }
-        
-        // Check if user exists
-        const userQuery = 'SELECT id FROM users WHERE id = ?';
-        db.query(userQuery, [userId], async (err, userResults) => {
-            if (err) {
-                console.error('Database error:', err);
-                return res.status(500).json({ success: false, error: 'Database error checking user' });
-            }
-            
-            if (!userResults || userResults.length === 0) {
-                return res.status(404).json({ success: false, error: 'User not found' });
-            }
-            
-            // Use the helper function to update notifications
-            updateNotifications(userId, notifications, res, {
-                success: true,
-                message: 'Notification preferences updated successfully'
-            });
-        });
-    } catch (error) {
-        console.error('Server error:', error);
-        res.status(500).json({ success: false, error: 'Server error processing notification update' });
-    }
-});
-
-// Helper function to format profile response
-function formatProfileResponse(profile) {
-  return {
-    id: profile.id,
-    userId: profile.user_id,
-    bio: profile.bio || '',
-    location: profile.location || '',
-    interests: profile.interests || '',
-    favoriteCategory: profile.favorite_category || '',
-    achievementGoals: profile.achievement_goals || '',
-    profilePhotoUrl: profile.profile_photo_url || '',
-    createdAt: profile.created_at,
-    updatedAt: profile.updated_at
-  };
-}
 
 // ✅ Start the server
 const PORT = 3000;

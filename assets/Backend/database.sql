@@ -103,7 +103,7 @@ VALUES
 ('Which fruit has its seeds on the outside?', 'Strawberry', 'Apple', 'Mango', 'Banana', 'A'),
 ('What is the main ingredient in guacamole?', 'Tomato', 'Avocado', 'Onion', 'Lime', 'B'),
 ('Which nut is used to make marzipan?', 'Almond', 'Cashew', 'Walnut', 'Hazelnut', 'A'),
-('What is the world's most expensive spice by weight?', 'Cinnamon', 'Vanilla', 'Saffron', 'Turmeric', 'C'),
+('What is the worlds most expensive spice by weight?', 'Cinnamon', 'Vanilla', 'Saffron', 'Turmeric', 'C'),
 ('What type of pasta is shaped like a bow tie?', 'Spaghetti', 'Fettuccine', 'Farfalle', 'Penne', 'C'),
 ('Which country is known for its famous dish, Paella?', 'Spain', 'Italy', 'Mexico', 'Portugal', 'A');
 
@@ -168,7 +168,7 @@ VALUES
 ('Which planet has rings around it?', 'Mars', 'Venus', 'Saturn', 'Jupiter', 'C'),
 ('What is the smallest planet in our solar system?', 'Mars', 'Mercury', 'Pluto', 'Venus', 'B'),
 ('Who was the first human in space?', 'Neil Armstrong', 'Yuri Gagarin', 'Buzz Aldrin', 'Alan Shepard', 'B'),
-('What is the name of Earth's natural satellite?', 'Moon', 'Europa', 'Titan', 'Ganymede', 'A');
+('What is the name of Earth natural satellite?', 'Moon', 'Europa', 'Titan', 'Ganymede', 'A');
 
 -- Video Games Questions Table
 CREATE TABLE videogames_questions (
@@ -330,107 +330,6 @@ INSERT INTO music_questions (question_text, option_a, option_b, option_c, option
 ('What is the highest male singing voice?', 'Bass', 'Tenor', 'Baritone', 'Soprano', 'B'),
 ('Which country is famous for originating Flamenco music?', 'Spain', 'Italy', 'Mexico', 'Brazil', 'A');
 
--- Create user_scores table to store quiz results
-CREATE TABLE IF NOT EXISTS user_score (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(255) NOT NULL,
-    username VARCHAR(255) NOT NULL,
-    score INT NOT NULL,
-    theme VARCHAR(50) NOT NULL,
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
-);
-
-ALTER TABLE user_score ADD COLUMN theme VARCHAR(50) NOT NULL;
-
-select * from user_score;
-SHOW TABLES;
-
-INSERT INTO user_score (email, username, score, theme) VALUES
-('ash@example.com', 'Ash', 8, 'general_knowledge'),
-('brock@example.com', 'Brock', 6, 'sports'),
-('misty@example.com', 'Misty', 9, 'science'),
-('gary@example.com', 'Gary', 10, 'wildlife'),
-('may@example.com', 'May', 7, 'food'),
-('dawn@example.com', 'Dawn', 6, 'tech'),
-('iris@example.com', 'Iris', 4, 'movies'),
-('serena@example.com', 'Serena', 5, 'space'),
-('paul@example.com', 'Paul', 10, 'video_games'),
-('zoey@example.com', 'Zoey', 9, 'maths'),
-('trip@example.com', 'Trip', 8, 'mythology'),
-('gladion@example.com', 'Gladion', 7, 'science'),
-('kiawe@example.com', 'Kiawe', 6, 'general_knowledge'),
-('lana@example.com', 'Lana', 9, 'tech'),
-('marnie@example.com', 'Marnie', 5, 'sports'),
-('hop@example.com', 'Hop', 6, 'wildlife'),
-('bea@example.com', 'Bea', 10, 'movies'),
-('nessa@example.com', 'Nessa', 7, 'maths'),
-('leon@example.com', 'Leon', 8, 'video_games'),
-('raihan@example.com', 'Raihan', 6, 'mythology');
-
-CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    phone VARCHAR(15) NOT NULL,
-    dob DATE NOT NULL,
-    gender ENUM('male', 'female', 'other') NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-drop table users;
-select * from users; 
-
-INSERT INTO users (name, email, phone, dob, gender, password) VALUES
-('Ash', 'ash@example.com', '9876543210', '2000-05-10', 'male', 'password123'),
-('Brock', 'brock@example.com', '9876543211', '1998-11-12', 'male', 'password123'),
-('Misty', 'misty@example.com', '9876543212', '2001-07-08', 'female', 'password123'),
-('Gary', 'gary@example.com', '9876543213', '1999-09-15', 'male', 'password123'),
-('May', 'may@example.com', '9876543214', '2002-01-20', 'female', 'password123'),
-('Dawn', 'dawn@example.com', '9876543215', '2000-06-18', 'female', 'password123'),
-('Iris', 'iris@example.com', '9876543216', '1998-04-22', 'female', 'password123'),
-('Serena', 'serena@example.com', '9876543217', '2003-03-11', 'female', 'password123'),
-('Paul', 'paul@example.com', '9876543218', '2001-12-25', 'male', 'password123'),
-('Zoey', 'zoey@example.com', '9876543219', '1999-08-30', 'female', 'password123'),
-('Trip', 'trip@example.com', '9876543220', '2002-02-14', 'male', 'password123'),
-('Gladion', 'gladion@example.com', '9876543221', '2000-10-01', 'male', 'password123'),
-('Kiawe', 'kiawe@example.com', '9876543222', '1997-05-05', 'male', 'password123'),
-('Lana', 'lana@example.com', '9876543223', '2003-09-09', 'female', 'password123'),
-('Marnie', 'marnie@example.com', '9876543224', '2001-01-30', 'female', 'password123'),
-('Hop', 'hop@example.com', '9876543225', '1999-03-03', 'male', 'password123'),
-('Bea', 'bea@example.com', '9876543226', '2000-08-08', 'female', 'password123'),
-('Nessa', 'nessa@example.com', '9876543227', '2002-06-16', 'female', 'password123'),
-('Leon', 'leon@example.com', '9876543228', '1998-12-12', 'male', 'password123'),
-('Raihan', 'raihan@example.com', '9876543229', '1997-07-07', 'male', 'password123');
-
-CREATE TABLE user_reviews (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    rating INT CHECK (rating BETWEEN 1 AND 5) NOT NULL,
-    feedback_type ENUM('general', 'content', 'bug', 'feature') NOT NULL,
-    feedback TEXT NOT NULL,
-    discovery ENUM('search', 'social', 'friend', 'ad', 'other') DEFAULT NULL,
-    interests TEXT DEFAULT NULL, -- Can store multiple interests as comma-separated values if needed
-    submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-select* from user_reviews; 
-
-SET GLOBAL general_log = 'ON';
-
--- Create contact_messages table
-CREATE TABLE contact_messages (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    subject VARCHAR(100) NOT NULL,
-    message TEXT NOT NULL,
-    status ENUM('new', 'read', 'replied', 'archived') DEFAULT 'new',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-select* from contact_messages; 
--- Add some sample data
 
 -- General Knowledge Questions
 INSERT INTO gk_questions (question_text, option_a, option_b, option_c, option_d, correct_option)
@@ -544,6 +443,108 @@ VALUES
 ('What type of instrument is a cello?', 'Woodwind', 'Brass', 'Percussion', 'String', 'D'),
 ('Who is known as the "Father of Modern Classical Music"?', 'Mozart', 'Bach', 'Beethoven', 'Tchaikovsky', 'C');
 
+-- Create user_scores table to store quiz results
+CREATE TABLE IF NOT EXISTS user_score (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    username VARCHAR(255) NOT NULL,
+    score INT NOT NULL,
+    theme VARCHAR(50) NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
+);
+
+ALTER TABLE user_score ADD COLUMN theme VARCHAR(50) NOT NULL;
+
+select * from user_score;
+SHOW TABLES;
+
+INSERT INTO user_score (email, username, score, theme) VALUES
+('ash@example.com', 'Ash', 8, 'general_knowledge'),
+('brock@example.com', 'Brock', 6, 'sports'),
+('misty@example.com', 'Misty', 9, 'science'),
+('gary@example.com', 'Gary', 10, 'wildlife'),
+('may@example.com', 'May', 7, 'food'),
+('dawn@example.com', 'Dawn', 6, 'tech'),
+('iris@example.com', 'Iris', 4, 'movies'),
+('serena@example.com', 'Serena', 5, 'space'),
+('paul@example.com', 'Paul', 10, 'video_games'),
+('zoey@example.com', 'Zoey', 9, 'maths'),
+('trip@example.com', 'Trip', 8, 'mythology'),
+('gladion@example.com', 'Gladion', 7, 'science'),
+('kiawe@example.com', 'Kiawe', 6, 'general_knowledge'),
+('lana@example.com', 'Lana', 9, 'tech'),
+('marnie@example.com', 'Marnie', 5, 'sports'),
+('hop@example.com', 'Hop', 6, 'wildlife'),
+('bea@example.com', 'Bea', 10, 'movies'),
+('nessa@example.com', 'Nessa', 7, 'maths'),
+('leon@example.com', 'Leon', 8, 'video_games'),
+('raihan@example.com', 'Raihan', 6, 'mythology');
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    phone VARCHAR(15) NOT NULL,
+    dob DATE NOT NULL,
+    gender ENUM('male', 'female', 'other') NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+drop table users;
+select * from users; 
+
+INSERT INTO users (name, email, phone, dob, gender, password) VALUES
+('Ash', 'ash@example.com', '9876543210', '2000-05-10', 'male', 'password123'),
+('Brock', 'brock@example.com', '9876543211', '1998-11-12', 'male', 'password123'),
+('Misty', 'misty@example.com', '9876543212', '2001-07-08', 'female', 'password123'),
+('Gary', 'gary@example.com', '9876543213', '1999-09-15', 'male', 'password123'),
+('May', 'may@example.com', '9876543214', '2002-01-20', 'female', 'password123'),
+('Dawn', 'dawn@example.com', '9876543215', '2000-06-18', 'female', 'password123'),
+('Iris', 'iris@example.com', '9876543216', '1998-04-22', 'female', 'password123'),
+('Serena', 'serena@example.com', '9876543217', '2003-03-11', 'female', 'password123'),
+('Paul', 'paul@example.com', '9876543218', '2001-12-25', 'male', 'password123'),
+('Zoey', 'zoey@example.com', '9876543219', '1999-08-30', 'female', 'password123'),
+('Trip', 'trip@example.com', '9876543220', '2002-02-14', 'male', 'password123'),
+('Gladion', 'gladion@example.com', '9876543221', '2000-10-01', 'male', 'password123'),
+('Kiawe', 'kiawe@example.com', '9876543222', '1997-05-05', 'male', 'password123'),
+('Lana', 'lana@example.com', '9876543223', '2003-09-09', 'female', 'password123'),
+('Marnie', 'marnie@example.com', '9876543224', '2001-01-30', 'female', 'password123'),
+('Hop', 'hop@example.com', '9876543225', '1999-03-03', 'male', 'password123'),
+('Bea', 'bea@example.com', '9876543226', '2000-08-08', 'female', 'password123'),
+('Nessa', 'nessa@example.com', '9876543227', '2002-06-16', 'female', 'password123'),
+('Leon', 'leon@example.com', '9876543228', '1998-12-12', 'male', 'password123'),
+('Raihan', 'raihan@example.com', '9876543229', '1997-07-07', 'male', 'password123');
+
+CREATE TABLE user_reviews (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    rating INT CHECK (rating BETWEEN 1 AND 5) NOT NULL,
+    feedback_type ENUM('general', 'content', 'bug', 'feature') NOT NULL,
+    feedback TEXT NOT NULL,
+    discovery ENUM('search', 'social', 'friend', 'ad', 'other') DEFAULT NULL,
+    interests TEXT DEFAULT NULL, -- Can store multiple interests as comma-separated values if needed
+    submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+select* from user_reviews; 
+
+SET GLOBAL general_log = 'ON';
+
+-- Create contact_messages table
+CREATE TABLE contact_messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    subject VARCHAR(100) NOT NULL,
+    message TEXT NOT NULL,
+    status ENUM('new', 'read', 'replied', 'archived') DEFAULT 'new',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+select* from contact_messages; 
+-- Add some sample data
+
 
 
 -- Create a simplified leaderboard table
@@ -558,91 +559,31 @@ CREATE TABLE leaderboard (
     FOREIGN KEY (user_email) REFERENCES users(email) ON DELETE CASCADE
 );
 
--- Index for faster querying
-CREATE INDEX idx_leaderboard_score ON leaderboard (percentage_score DESC);
-CREATE INDEX idx_leaderboard_theme ON leaderboard (theme);
 
--- Simple query to populate the leaderboard with existing scores
--- This calculates percentage based on theme (some themes may have 7 questions, others 10)
-INSERT INTO leaderboard (user_email, username, theme, raw_score, percentage_score, played_at)
-SELECT 
-    us.email, 
-    u.name AS username,
-    us.theme,
-    us.score AS raw_score,
-    CASE 
-        -- Add cases for themes with different total questions
-        WHEN us.theme IN ('wildlife', 'food', 'tech', 'movies', 'space', 'videogames') THEN (us.score * 100.0) / 7
-        ELSE (us.score * 100.0) / 10  -- Default to 10 questions
-    END AS percentage_score,
-    us.timestamp
-FROM 
-    user_score us
-JOIN 
-    users u ON us.email = u.email;
-
--- Simple query to add a new score to the leaderboard
--- Example of how to run this when a new score is added:
-/*
-INSERT INTO leaderboard (user_email, username, theme, raw_score, percentage_score, played_at)
-SELECT 
-    'user@example.com',  -- Replace with the user's email
-    (SELECT name FROM users WHERE email = 'user@example.com'),
-    'science',  -- Replace with the quiz theme
-    8,  -- Replace with the raw score
-    (8 * 100.0) / 10,  -- Calculate percentage (adjust divisor based on theme)
-    NOW();
-*/
 select * from leaderboard;
--- Query to get top 10 scores across all themes
-SELECT username, theme, raw_score, percentage_score
-FROM leaderboard
-ORDER BY percentage_score DESC
-LIMIT 10;
-
--- Query to get top 10 scores for a specific theme
-SELECT username, raw_score, percentage_score
-FROM leaderboard
-WHERE theme = 'science'  -- Replace with any theme
-ORDER BY percentage_score DESC
-LIMIT 10;
-
--- Query to get a specific user's scores
-SELECT theme, raw_score, percentage_score, played_at
-FROM leaderboard
-WHERE user_email = 'user@example.com'  -- Replace with user's email
-ORDER BY played_at DESC;
-
 
 INSERT INTO leaderboard (user_email, username, theme, raw_score, percentage_score) VALUES
 ('ash@example.com', 'Ash', 'general_knowledge', 8, 80.00),
-('brock@example.com', 'Brock', 'sports', 6, 60.00),
-('misty@example.com', 'Misty', 'science', 9, 90.00),
-('gary@example.com', 'Gary', 'wildlife', 10, 100.00),
-('may@example.com', 'May', 'food', 7, 70.00),
-('dawn@example.com', 'Dawn', 'tech', 6, 60.00),
-('iris@example.com', 'Iris', 'movies', 4, 40.00),
-('serena@example.com', 'Serena', 'space', 5, 50.00),
-('paul@example.com', 'Paul', 'video_games', 10, 100.00),
-('zoey@example.com', 'Zoey', 'maths', 9, 90.00),
-('trip@example.com', 'Trip', 'mythology', 8, 80.00),
-('gladion@example.com', 'Gladion', 'science', 7, 70.00),
-('kiawe@example.com', 'Kiawe', 'general_knowledge', 6, 60.00),
-('lana@example.com', 'Lana', 'tech', 9, 90.00),
-('marnie@example.com', 'Marnie', 'sports', 5, 50.00),
-('hop@example.com', 'Hop', 'wildlife', 6, 60.00),
+('brock@example.com', 'Brock', 'sports', 7, 70.00),
+('misty@example.com', 'Misty', 'wildlife', 9, 90.00),
+('gary@example.com', 'Gary', 'tech', 6, 60.00),
+('may@example.com', 'May', 'movies', 10, 100.00),
+('dawn@example.com', 'Dawn', 'space', 5, 50.00),
+('iris@example.com', 'Iris', 'maths', 7, 70.00),
+('serena@example.com', 'Serena', 'mythology', 9, 90.00),
+('paul@example.com', 'Paul', 'science', 6, 60.00),
+('zoey@example.com', 'Zoey', 'food', 8, 80.00),
+('trip@example.com', 'Trip', 'video_games', 7, 70.00),
+('gladion@example.com', 'Gladion', 'sports', 6, 60.00),
+('kiawe@example.com', 'Kiawe', 'general_knowledge', 8, 80.00),
+('lana@example.com', 'Lana', 'wildlife', 7, 70.00),
+('marnie@example.com', 'Marnie', 'tech', 9, 90.00),
+('hop@example.com', 'Hop', 'space', 6, 60.00),
 ('bea@example.com', 'Bea', 'movies', 10, 100.00),
-('nessa@example.com', 'Nessa', 'maths', 7, 70.00),
-('leon@example.com', 'Leon', 'video_games', 8, 80.00),
-('raihan@example.com', 'Raihan', 'mythology', 6, 60.00);
+('nessa@example.com', 'Nessa', 'food', 5, 50.00),
+('leon@example.com', 'Leon', 'science', 7, 70.00),
+('raihan@example.com', 'Raihan', 'mythology', 8, 80.00);
 
-   DELETE FROM leaderboard 
-   WHERE user_email IS NULL 
-   OR username IS NULL 
-   OR theme IS NULL 
-   OR raw_score IS NULL 
-   OR percentage_score IS NULL
-   OR played_at IS NULL;
 
 -- Create user_profiles table to store additional profile information
 CREATE TABLE user_profiles (

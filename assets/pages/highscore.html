@@ -115,7 +115,7 @@
             <div class="footer-logo">TRIVIO</div>
             <div class="footer-links">
                 <a href="home.html">Home</a>
-                <a href="highscore.html">High Score</a>
+                <a href="highscore.html">Leaderboard</a>
                 <a href="themes.html">Quiz</a>
                 <a href="contact.html">Contact Us</a>
                 <a href="coding.html">Learn More</a>
@@ -131,13 +131,11 @@
     </footer>
 
     <script>
-        // API URL - Change this to your actual server URL
         const API_URL = 'http://localhost:3000';
         
-        // Selected theme
+        
         let selectedTheme = 'all';
         
-        // Function to filter scores based on selected theme
         function filterScores() {
             selectedTheme = document.getElementById('themeSelect').value;
             fetchLeaderboardData();
@@ -341,12 +339,10 @@
                 }, index * 120);
             });
             
-            // Fetch data from API after short delay to allow static content to be seen
             setTimeout(() => {
                 fetchLeaderboardData();
             }, 800);
             
-            // Add scroll event listener for navbar styling
             window.addEventListener('scroll', function() {
                 const navbar = document.querySelector('.navbar');
                 if (window.scrollY > 50) {
