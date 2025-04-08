@@ -3,53 +3,39 @@ const mysql = require('mysql2');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const bodyParser = require('body-parser');
+
 const app = express();
 app.use(cors());
-app.use(express.json()); // To parse JSON body
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Database connection
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'shrey123', // Your password
-    database: 'quiz_app'  // Database name
+    password: 'shrey123',
+    database: 'quiz_app'
 });
 
-db.connect(err => {
-    if (err) {
-        console.error('❌ Database connection failed: ' + err.stack);
-        return;
-    }
-    console.log('✅ Connected to database.');
-});
-
-// ✅ User Registration
+// User Registration
 app.post('/register', async (req, res) => {
     const { name, email, phone, dob, gender, password } = req.body;
 
     if (!name || !email || !phone || !dob || !gender || !password) {
-        return res.status(400).json({ error: '❗ All fields are required!' });
+        return res.status(400).json({ error: 'All fields are required!' });
     }
 
     try {
-        console.log("🔍 Checking existing user...");
-
         const checkUserQuery = "SELECT * FROM users WHERE email = ? OR phone = ?";
         db.query(checkUserQuery, [email, phone], async (err, results) => {
             if (err) {
-                console.error("❌ Database error:", err);
-                return res.status(500).json({ error: `❌ DB Error: ${err.message}` });
+                return res.status(500).json({ error: `DB Error: ${err.message}` });
             }
 
             if (results.length > 0) {
-                console.log("❌ User already exists:", results);
-                return res.status(400).json({ error: "❌ Email or Phone already in use!" });
+                return res.status(400).json({ error: "Email or Phone already in use!" });
             }
 
-            // Hash password
             const hashedPassword = await bcrypt.hash(password, 10);
-            console.log("🔐 Hashed password:", hashedPassword);
 
             const insertUserQuery = `
                 INSERT INTO users (name, email, phone, dob, gender, password)
@@ -58,63 +44,50 @@ app.post('/register', async (req, res) => {
 
             db.query(insertUserQuery, [name, email, phone, dob, gender, hashedPassword], (err, result) => {
                 if (err) {
-                    console.error("❌ Insert error:", err);
-                    return res.status(500).json({ error: `❌ Insert failed: ${err.message}` });
+                    return res.status(500).json({ error: `Insert failed: ${err.message}` });
                 }
 
-                console.log("✅ User registered:", result);
-                
-                // Initialize default notification settings for new user
                 const userId = result.insertId;
                 const notificationTypes = ['new-quizzes', 'achievements', 'leaderboard', 'friends'];
-                
                 const notificationValues = notificationTypes.map(type => [userId, type, true]);
-                
+
                 const notificationQuery = `
                     INSERT INTO user_notifications (user_id, notification_type, is_enabled)
                     VALUES ?
                 `;
-                
-                db.query(notificationQuery, [notificationValues], (err, notifResult) => {
+
+                db.query(notificationQuery, [notificationValues], (err) => {
                     if (err) {
-                        console.error("⚠️ Notification settings not initialized:", err);
-                        // We continue despite notification settings error
-                    } else {
-                        console.log("✅ Notification settings initialized");
+                        // Continue despite error
                     }
-                    
-                    // Create empty profile for the user
+
                     const profileQuery = `
                         INSERT INTO user_profiles (user_id, bio, location, interests, favorite_category, achievement_goals)
                         VALUES (?, '', '', '', '', '')
                     `;
-                    
-                    db.query(profileQuery, [userId], (err, profileResult) => {
+
+                    db.query(profileQuery, [userId], (err) => {
                         if (err) {
-                            console.error("⚠️ Profile not initialized:", err);
-                            // We continue despite profile initialization error
-                        } else {
-                            console.log("✅ User profile initialized");
+                            // Continue despite error
                         }
-                        
-                        res.status(201).json({ message: '✅ User registered successfully!' });
+
+                        res.status(201).json({ message: 'User registered successfully!' });
                     });
                 });
             });
         });
 
     } catch (error) {
-        console.error("❌ Registration failed:", error);
-        res.status(500).json({ error: `❌ Registration failed! ${error.message}` });
+        res.status(500).json({ error: `Registration failed! ${error.message}` });
     }
 });
 
-// ✅ User Login
+// User Login
 app.post('/login', (req, res) => {
     const { identifier, password } = req.body;
 
     if (!identifier || !password) {
-        return res.status(400).json({ success: false, error: '❗ All fields are required!' });
+        return res.status(400).json({ success: false, error: 'All fields are required!' });
     }
 
     const query = `SELECT id, name, email, password FROM users WHERE email = ? OR phone = ?`;
@@ -123,29 +96,28 @@ app.post('/login', (req, res) => {
         if (err) return res.status(500).json({ success: false, error: err.message });
 
         if (results.length === 0) {
-            return res.status(401).json({ success: false, error: '❌ User not found!' });
+            return res.status(401).json({ success: false, error: 'User not found!' });
         }
 
         const user = results[0];
 
-        // ✅ Compare hashed password
         bcrypt.compare(password, user.password, (err, isMatch) => {
             if (err) return res.status(500).json({ success: false, error: 'Error comparing passwords!' });
 
             if (!isMatch) {
-                return res.status(401).json({ success: false, error: '❌ Incorrect password!' });
+                return res.status(401).json({ success: false, error: 'Incorrect password!' });
             }
 
             res.json({ 
                 success: true, 
-                message: '✅ Login successful!', 
+                message: 'Login successful!', 
                 user: { id: user.id, username: user.name, email: user.email } 
             });
         });
     });
 });
 
-// ✅ Get Quiz Questions
+// Get Quiz Questions
 app.get('/questions', (req, res) => {
     const theme = req.query.theme;
     const validThemes = [
@@ -156,7 +128,7 @@ app.get('/questions', (req, res) => {
     ];
 
     if (!validThemes.includes(theme)) {
-        return res.status(400).json({ error: '❌ Invalid theme selected!' });
+        return res.status(400).json({ error: 'Invalid theme selected!' });
     }
 
     const query = `SELECT * FROM ${theme} ORDER BY RAND() LIMIT 10`;
@@ -169,7 +141,7 @@ app.get('/questions', (req, res) => {
     });
 });
 
-// ✅ Submit Quiz Score - UPDATED
+// Submit Quiz Score
 app.post("/submit-score", (req, res) => {
     const { email, username, theme, score, totalQuestions } = req.body;
 
@@ -177,33 +149,28 @@ app.post("/submit-score", (req, res) => {
         return res.status(400).json({ error: "Email, score, and theme are required." });
     }
 
-    // Insert score with the provided username and theme
     const query = "INSERT INTO user_score (email, username, score, theme) VALUES (?, ?, ?, ?)";
     
     db.query(query, [email, username, score, theme], (err, result) => {
         if (err) {
-            console.error("Error saving score:", err);
             return res.status(500).json({ error: "Database error while saving score." });
         }
-        
-        console.log(`✅ Score saved for user ${username} with email ${email}: ${score} in theme ${theme}`);
+
         res.json({ success: true, message: "Score saved successfully!" });
     });
 });
 
-// ✅ Store User Reviews (Improved)
+// Store User Reviews
 app.post('/submit-review', async (req, res) => {
     const { name, email, rating, feedback_type, feedback, discovery, interests } = req.body;
 
     if (!name || !email || !rating || !feedback_type || !feedback) {
-        return res.status(400).json({ error: "❗ All required fields must be filled!" });
+        return res.status(400).json({ error: "All required fields must be filled!" });
     }
 
     if (isNaN(rating) || rating < 1 || rating > 5) {
-        return res.status(400).json({ error: "❌ Invalid rating value! Must be between 1 and 5." });
+        return res.status(400).json({ error: "Invalid rating value! Must be between 1 and 5." });
     }
-
-    console.log("📝 Received review data:", req.body);
 
     const query = `
         INSERT INTO user_reviews (name, email, rating, feedback_type, feedback, discovery, interests)
@@ -217,21 +184,19 @@ app.post('/submit-review', async (req, res) => {
             interests && interests.trim() !== "" ? interests : null
         ]);
 
-        console.log("✅ Review stored successfully with ID:", result.insertId);
-        res.status(201).json({ message: "✅ Review submitted successfully!", reviewId: result.insertId });
+        res.status(201).json({ message: "Review submitted successfully!", reviewId: result.insertId });
 
     } catch (err) {
-        console.error("❌ Error saving review:", err);
-        res.status(500).json({ error: "❌ Database error while saving review!" });
+        res.status(500).json({ error: "Database error while saving review!" });
     }
 });
 
-// ✅ Contact Form Submission
+// Contact Form Submission
 app.post('/submit-contact', (req, res) => {
     const { name, email, subject, message } = req.body;
 
     if (!name || !email || !subject || !message) {
-        return res.status(400).json({ error: '❗ All fields are required!' });
+        return res.status(400).json({ error: 'All fields are required!' });
     }
 
     const query = `
@@ -241,43 +206,34 @@ app.post('/submit-contact', (req, res) => {
 
     db.query(query, [name, email, subject, message], (err, result) => {
         if (err) {
-            console.error("❌ Error saving contact message:", err);
-            return res.status(500).json({ error: "❌ Failed to save message. Please try again." });
+            return res.status(500).json({ error: "Failed to save message. Please try again." });
         }
-        
-        console.log("✅ Contact message saved successfully:", result);
-        res.status(201).json({ message: "✅ Message sent successfully!" });
+
+        res.status(201).json({ message: "Message sent successfully!" });
     });
 });
 
-// ✅ Get Leaderboard Data
+// Get Leaderboard Data
 app.get('/leaderboard', async (req, res) => {
     try {
         const theme = req.query.theme;
 
-        // First, clean up the leaderboard by removing records with null values
         await cleanLeaderboardData();
-        
-        // Construct the SQL query with theme filtering if provided
+
         let query = 'SELECT * FROM leaderboard';
         const params = [];
-        
+
         if (theme && theme !== 'all') {
             query += ' WHERE theme = ?';
             params.push(theme);
         }
-        
+
         query += ' ORDER BY percentage_score DESC LIMIT 10';
-        console.log('Executing query:', query, 'with params:', params);
-        
-        // Execute the query
+
         const [results] = await db.promise().execute(query, params);
-        console.log(`Found ${results.length} results`);
-        
-        // If no results, use sample data
+
         let responseData = results.length > 0 ? results : getSampleLeaderboardData(theme);
-        
-        // Map theme codes to readable names and format dates
+
         responseData = responseData.map(score => {
             const themeMapping = {
                 'gk_questions': 'General Knowledge',
@@ -294,28 +250,23 @@ app.get('/leaderboard', async (req, res) => {
                 'food_questions': 'Food & Drinks',
                 'space_questions': 'Space',
                 'literature_questions': 'Literature',
-                'geopolitics_questions': 'Psychology & Personality',
+                'geopolitics_questions': 'Geopolitics',
                 'videogames_questions': 'Video Games'
             };
-            
+
             return {
                 ...score,
                 theme_name: themeMapping[score.theme] || score.theme,
                 played_at: score.played_at ? new Date(score.played_at).toLocaleDateString() : new Date().toLocaleDateString()
             };
         });
-        
-        // Send response
-        res.json({ 
-            data: responseData
-        });
+
+        res.json({ data: responseData });
     } catch (error) {
-        console.error('Error fetching leaderboard data:', error);
         res.status(500).json({ message: 'Error fetching leaderboard data', error: error.message });
     }
 });
 
-// Function to clean leaderboard data by removing records with null values
 async function cleanLeaderboardData() {
     try {
         const cleanupQuery = `
@@ -327,31 +278,23 @@ async function cleanLeaderboardData() {
             OR percentage_score IS NULL
             OR played_at IS NULL
         `;
-        
+
         const [result] = await db.promise().execute(cleanupQuery);
-        console.log(`Cleaned leaderboard data: ${result.affectedRows} records removed`);
         return result;
     } catch (error) {
-        console.error('Error cleaning leaderboard data:', error);
         throw error;
     }
 }
 
-
-
-
 // Logout endpoint
 app.post("/logout", (req, res) => {
     try {
-        // Clear any session data if you're using sessions
-        // For now, we'll just send a success response
         res.json({ 
             success: true, 
             message: "Logged out successfully",
             timestamp: new Date().toISOString()
         });
     } catch (error) {
-        console.error("Logout error:", error);
         res.status(500).json({ 
             success: false, 
             error: "Error during logout",
@@ -360,9 +303,7 @@ app.post("/logout", (req, res) => {
     }
 });
 
-
-// ✅ Start the server
 const PORT = 3000;
 app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
 });
