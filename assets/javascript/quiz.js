@@ -2,16 +2,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const questionText = document.getElementById("question-text");
     const optionsContainer = document.getElementById("options");
     const nextBtn = document.getElementById("next-btn");
-    const quizContainer = document.getElementById("quiz-container"); // Container for quiz elements
+    const quizContainer = document.getElementById("quiz-container");
 
     let questions = [];
     let currentQuestionIndex = 0;
     let selectedAnswer = "";
     let score = 0;
 
-    // ✅ Fetch user details from localStorage
     let username = localStorage.getItem("username") || "Guest";
-    let email = localStorage.getItem("email"); // Ensure email is stored on login
+    let email = localStorage.getItem("email");
 
     if (!email) {
         alert("⚠️ User email not found. Please log in again.");
@@ -19,13 +18,11 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    // ✅ Get quiz theme from URL parameters
     const urlParams = new URLSearchParams(window.location.search);
-    const theme = urlParams.get("theme") || "gk_questions"; // Default to GK if not provided
+    const theme = urlParams.get("theme") || "gk_questions";
 
-    console.log("Current User:", username); // Debugging log
+    console.log("Current User:", username);
 
-    // ✅ Fetch questions from the backend
     fetch(`http://localhost:3000/questions?theme=${theme}`)
         .then(response => {
             if (!response.ok) throw new Error("Failed to fetch questions!");
@@ -47,10 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
             optionsContainer.innerHTML = "<p>Try refreshing the page.</p>";
         });
 
-    // ✅ Display the current question
     function showQuestion() {
         if (currentQuestionIndex >= questions.length) {
-            submitScore(); // Send score when quiz is completed
+            submitScore();
             showCompletionScreen();
             return;
         }
@@ -65,26 +61,22 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="option-btn" data-value="D">${q.option_d}</div>
         `;
 
-        // Hide Next button until an answer is selected
         nextBtn.style.display = "none";
         selectedAnswer = "";
 
-        // Add event listeners to each option button
         document.querySelectorAll(".option-btn").forEach(option => {
             option.addEventListener("click", () => {
                 if (!selectedAnswer) {
-                    selectedAnswer = option.dataset.value; // Store selected value
+                    selectedAnswer = option.dataset.value;
                     checkAnswer(option);
                 }
             });
         });
     }
 
-    // ✅ Check if selected answer is correct
     function checkAnswer(selectedOption) {
         const correctOption = questions[currentQuestionIndex].correct_option;
 
-        // Disable all options to prevent multiple clicks
         document.querySelectorAll(".option-btn").forEach(option => option.style.pointerEvents = "none");
 
         if (selectedOption.dataset.value === correctOption) {
@@ -93,7 +85,6 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             selectedOption.classList.add("wrong");
 
-            // Highlight correct option
             document.querySelectorAll(".option-btn").forEach(option => {
                 if (option.dataset.value === correctOption) {
                     option.classList.add("correct");
@@ -101,26 +92,23 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        // Show the Next button after 1 second
         setTimeout(() => {
             nextBtn.style.display = "block";
-        }, 1000);
+        }, 750);
     }
 
-    // ✅ Handle Next button click
     nextBtn.addEventListener("click", () => {
         currentQuestionIndex++;
         showQuestion();
     });
-
-    // ✅ Submit the score to the backend - UPDATED
+    
     function submitScore() {
         fetch("http://localhost:3000/submit-score", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 email: email,
-                username: username, // Pass the actual username from localStorage
+                username: username,
                 theme: theme,
                 score: score,
                 totalQuestions: questions.length
@@ -131,8 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(error => console.error("Error submitting score:", error));
     }
 
-    // ✅ Show quiz completion screen with exit buttons
-    function showCompletionScreen() {
+        function showCompletionScreen() {
         questionText.innerText = "Quiz Completed!";
         optionsContainer.innerHTML = `
             <div class="completion-screen">
@@ -155,7 +142,6 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
         `;
 
-        // Add event listeners to the new buttons
         const retryBtn = optionsContainer.querySelector('.retry');
         const themesBtn = optionsContainer.querySelector('.themes');
         const homeBtn = optionsContainer.querySelector('.home');
@@ -171,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         homeBtn.addEventListener('click', () => {
-            window.location.href = "home.html";
+            window.location.href = "/assets/pages/home.html";
         });
 
         nextBtn.style.display = "none";

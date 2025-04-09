@@ -47,36 +47,9 @@ app.post('/register', async (req, res) => {
                     return res.status(500).json({ error: `Insert failed: ${err.message}` });
                 }
 
-                const userId = result.insertId;
-                const notificationTypes = ['new-quizzes', 'achievements', 'leaderboard', 'friends'];
-                const notificationValues = notificationTypes.map(type => [userId, type, true]);
-
-                const notificationQuery = `
-                    INSERT INTO user_notifications (user_id, notification_type, is_enabled)
-                    VALUES ?
-                `;
-
-                db.query(notificationQuery, [notificationValues], (err) => {
-                    if (err) {
-                        // Continue despite error
-                    }
-
-                    const profileQuery = `
-                        INSERT INTO user_profiles (user_id, bio, location, interests, favorite_category, achievement_goals)
-                        VALUES (?, '', '', '', '', '')
-                    `;
-
-                    db.query(profileQuery, [userId], (err) => {
-                        if (err) {
-                            // Continue despite error
-                        }
-
-                        res.status(201).json({ message: 'User registered successfully!' });
-                    });
-                });
+                res.status(201).json({ message: 'User registered successfully!' });
             });
         });
-
     } catch (error) {
         res.status(500).json({ error: `Registration failed! ${error.message}` });
     }
@@ -131,7 +104,7 @@ app.get('/questions', (req, res) => {
         return res.status(400).json({ error: 'Invalid theme selected!' });
     }
 
-    const query = `SELECT * FROM ${theme} ORDER BY RAND() LIMIT 10`;
+    const query = `SELECT * FROM ${theme} ORDER BY RAND() LIMIT 10`;    
 
     db.query(query, (err, results) => {
         if (err) {
@@ -199,7 +172,7 @@ app.post('/submit-contact', (req, res) => {
         return res.status(400).json({ error: 'All fields are required!' });
     }
 
-    const query = `
+    const query = ` 
         INSERT INTO contact_messages (name, email, subject, message)
         VALUES (?, ?, ?, ?)
     `;
@@ -284,6 +257,15 @@ async function cleanLeaderboardData() {
     } catch (error) {
         throw error;
     }
+}
+function getSampleLeaderboardData(theme) {
+    const sampleData = [
+        { username: 'Alice', theme: 'General Knowledge', raw_score: 8, percentage_score: 80, played_at: new Date() },
+        { username: 'Bob', theme: 'Technology', raw_score: 9, percentage_score: 90, played_at: new Date() },
+        { username: 'Charlie', theme: 'Sports', raw_score: 7, percentage_score: 70, played_at: new Date() }
+    ];
+
+    return sampleData;
 }
 
 // Logout endpoint
