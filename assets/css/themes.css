@@ -260,14 +260,3 @@ body {
     transform: scale(1.4) rotate(15deg);
 }
 
-/* Form error styles */
-.error {
-    color: #d9534f;
-    font-size: 14px;
-    margin-top: 5px;
-    font-family: Font3, sans-serif;
-    display: none;
-}
-.form-control.error-field {
-    border-color: #d9534f;
-}

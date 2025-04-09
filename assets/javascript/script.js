@@ -33,76 +33,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
     
-    // Add smooth scroll for navbar anchor links
-    navLinks.forEach(link => {
-        if (link.hash && link.hash.length > 1) {  // Make sure it's a non-empty hash
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    // Remove active class from all links
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    
-                    // Add active class to clicked link
-                    this.classList.add('active');
-                    
-                    // Smooth scroll to the element
-                    window.scrollTo({
-                        top: targetElement.offsetTop - navbar.offsetHeight - 20, // Add some extra padding
-                        behavior: 'smooth'
-                    });
-                    
-                    // Update URL without page reload
-                    history.pushState(null, null, targetId);
-                }
-            });
-        }
-    });
+ 
+  
     
-    // Add scroll effect for navbar with enhanced throttling
-    let lastScrollTop = 0;
-    let ticking = false;
-    
-    window.addEventListener("scroll", function () {
-        const scrollTop = window.scrollY;
-        
-        if (!ticking) {
-            window.requestAnimationFrame(function() {
-                // Basic scrolling class
-                if (scrollTop > 50) {
-                    navbar.classList.add("scrolled");
-                } else {
-                    navbar.classList.remove("scrolled");
-                }
-                
-                // Only add scrolling-down class if not currently hovering the navbar
-                if (scrollTop > lastScrollTop && scrollTop > 200) {
-                    if (!navbar.matches(':hover') && !navbar.matches(':focus-within')) {
-                        navbar.classList.add("scrolling-down");
-                    }
-                } else {
-                    navbar.classList.remove("scrolling-down");
-                }
-                
-                lastScrollTop = scrollTop;
-                ticking = false;
-            });
-            
-            ticking = true;
-        }
-    });
-    
-    // Add hover/focus event listeners to ensure navbar appears when interacted with
-    navbar.addEventListener('mouseenter', function() {
-        navbar.classList.remove("scrolling-down");
-    });
-    
-    navbar.addEventListener('focusin', function() {
-        navbar.classList.remove("scrolling-down");
-    });
-    
+
     // Section visibility check (keeping this from original code)
     const section = document.querySelector(".quiz-section");
     function checkVisibility() {

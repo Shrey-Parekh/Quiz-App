@@ -2,9 +2,9 @@
 :root {
     --primary-color: #252020;
     --secondary-color: antiquewhite;
-    --accent-orange: #D2691E;  /* More earthy orange for achievements */
-    --accent-purple: #8A2BE2;  /* Rich purple for testimonials */
-    --accent-green: #3E8914;   /* Earthy green for community */
+    --accent-orange: #D2691E;  
+    --accent-purple: #8A2BE2;  
+    --accent-green: #3E8914;   
     --card-bg: linear-gradient(145deg, #f8f3e9, #fff);
     --hover-shadow: 0 20px 40px rgba(37, 32, 32, 0.15);
     --card-shadow: 0 15px 30px rgba(37, 32, 32, 0.08);
@@ -130,7 +130,7 @@ body::before {
     position: relative;
 }
 
-/* Enhanced nav links with underline animation */
+
 .navbar ul li a {
     color: antiquewhite;
     text-decoration: none;
@@ -215,49 +215,6 @@ body::before {
     text-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
 }
 
-/* Responsive Design with improved mobile menu */
-@media (max-width: 768px) {
-    .navbar {
-        padding: 15px 25px;
-    }
-    
-    .navbar ul {
-        display: none;
-        flex-direction: column;
-        background: rgba(37, 32, 32, 0.98);
-        width: 100%;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        padding: 25px 0;
-        text-align: center;
-        gap: 20px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border-bottom-left-radius: 15px;
-        border-bottom-right-radius: 15px;
-    }
-
-    .navbar ul.active {
-        display: flex;
-        animation: slideDown 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    }
-
-    .menu-toggle {
-        display: block;
-    }
-    
-    .navbar ul li a {
-        font-size: 18px;
-        padding: 10px 20px;
-        display: block;
-    }
-    
-    .navbar ul li a::after {
-        bottom: 5px;
-    }
-}
 
 /* Mobile Menu Animation */
 @keyframes slideDown {
@@ -1667,86 +1624,6 @@ section:nth-of-type(even) {
     transform: translateX(5px);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .navbar ul {
-        display: none;
-        flex-direction: column;
-        background-color: rgba(37, 32, 32, 0.95);
-        position: absolute;
-        top: 60px;
-        left: 0;
-        width: 100%;
-        padding: 15px;
-        text-align: center;
-        transition: all 0.3s ease-in-out;
-    }
-
-    .navbar ul.active {
-        display: flex;
-    }
-
-    .menu-toggle {
-        display: block;
-        font-size: 28px;
-        color: white;
-        cursor: pointer;
-        transition: transform 0.3s ease-in-out;
-    }
-
-    .hero-content h1 {
-        font-size: 50px;
-    }
-
-    .about-container,
-    .team-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .timeline::after {
-        left: 31px;
-    }
-
-    .timeline-item {
-        width: 100%;
-        padding-left: 70px;
-        padding-right: 25px;
-    }
-
-    .timeline-item:nth-child(even) {
-        left: 0;
-    }
-
-    .timeline-item::after {
-        left: 16px;
-        right: auto;
-    }
-
-    .timeline-item:nth-child(even)::after {
-        left: 16px;
-    }
-
-    .contact-content {
-        grid-template-columns: 1fr;
-    }
-
-    .mission-stats {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .team-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .features-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .timeline-item {
-        margin-left: 20px;
-    }
-}
 
 /* Loading Animation */
 @keyframes shimmer {
@@ -2210,67 +2087,3 @@ section:nth-of-type(even) {
     100% { transform: rotate(360deg); }
 }
 
-/* Responsive Design for Impact Section */
-@media (max-width: 768px) {
-    .impact-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-        padding: 10px;
-    }
-
-    .impact-card {
-        padding: 30px 20px;
-    }
-    
-    .achievement-stats,
-    .community-stats {
-        gap: 15px;
-    }
-    
-    .achievement-stats {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .community-stats {
-        grid-template-columns: 1fr;
-    }
-    
-    .impact-card .impact-icon {
-        width: 70px;
-        height: 70px;
-        margin-bottom: 20px;
-    }
-    
-    .impact-card h3 {
-        font-size: 24px;
-        margin-bottom: 20px;
-    }
-    
-    .testimonial-content {
-        padding: 25px 20px;
-    }
-
-    .testimonial-content p {
-        font-size: 16px;
-    }
-
-    .author-info {
-        padding: 0 20px;
-    }
-    
-    .author-info h4 {
-        font-size: 20px;
-    }
-
-    .author-info p {
-        font-size: 14px;
-    }
-
-    .stat .number {
-        font-size: 28px;
-    }
-
-    .stat .label {
-        font-size: 14px;
-    }
-}

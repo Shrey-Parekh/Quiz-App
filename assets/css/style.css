@@ -854,7 +854,7 @@ body::before {
     opacity: 1;
 }
 
-/* Enhanced Image Styling */
+
 .quiz-card img {
     width: 100%;
     height: 180px;
@@ -955,49 +955,7 @@ body::before {
     100% { transform: translateX(calc(-50% - 12.5px)); } /* Half width plus half gap */
 }
 
-/* Responsive Improvements */
-@media (max-width: 900px) {
-    .quiz-section {
-        padding: 100px 20px;
-    }
-    
-    .marquee-container {
-        width: 95%;
-        height: 350px;
-    }
-    
-    .quiz-container {
-        flex-direction: row;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        animation: none;
-        gap: 15px;
-        padding: 10px;
-    }
-    
-    .quiz-card {
-        width: 250px;
-        height: 280px;
-        flex: 0 0 auto;
-        scroll-snap-align: center;
-    }
-    
-    .quiz-section h1 {
-        font-size: 40px;
-        letter-spacing: 0;
-    }
-    
-    .section-tag {
-        font-size: 16px;
-        letter-spacing: 2px;
-    }
 
-    .explore-more-container .section-tag {
-        padding: 8px 20px;
-    }
-}
-
-/* Contact Section - Enhanced Entry Animation */
 .contact-section {
     display: flex;
     flex-direction: column;
@@ -1014,14 +972,14 @@ body::before {
     animation: fadeInBounce 1.2s ease-out forwards;
 }
 
-/* Entrance Animation */
+
 @keyframes fadeInBounce {
     0% { opacity: 0; transform: translateY(50px) scale(0.9); }
     60% { opacity: 0.7; transform: translateY(-10px) scale(1); }
     100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* Title and Info Styling */
+
 .contact-info h2 {
     font-family: Font4;
     font-size: 38px;
