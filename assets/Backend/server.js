@@ -94,7 +94,7 @@ app.post('/login', (req, res) => {
 app.get('/questions', (req, res) => {
     const theme = req.query.theme;
     const validThemes = [
-        'gk_questions', 'sport_questions', 'science_questions', 
+        'gk_questions', 'sport_questions', 'science_questions','maths_questions',
         'wildlife_questions', 'food_questions', 'tech_questions', 
         'movies_questions', 'space_questions', 'videogames_questions','literature_questions','geopolitics_questions','mythology_questions',
         'music_questions','maths_question','geography_questions','history_questions'
